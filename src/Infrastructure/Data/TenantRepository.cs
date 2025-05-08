@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data
 {
-    internal class TenantRepository
+    public class TenantRepository
     {
     }
 }
