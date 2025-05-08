@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    internal class Class1
+    public interface ITenantRepository
     {
     }
 }
