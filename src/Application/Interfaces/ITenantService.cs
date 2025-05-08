@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
-    public class ITenantService
+    internal interface ITenantService
     {
     }
 }
