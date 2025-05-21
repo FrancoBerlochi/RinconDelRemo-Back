@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Interfaces;
 
-namespace Infrastructure.Data
+namespace Infrastructure.Data.Repositories
 {
-    public class OwnerRepository : IOwnerRepository
+    public class AttendantRepository : IAttendantRepository
     {
+
     }
 }
