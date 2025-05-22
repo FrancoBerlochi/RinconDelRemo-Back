@@ -12,12 +12,12 @@ namespace Infrastructure.Data.Repositories
             _context = context;
         }
 
-        public List<T> Get()
+        public List<T> GetAll()
         {
             return _context.Set<T>().ToList();
         }
 
-        public T Get(int id)
+        public T GetById(int id)
         {
             return _context.Set<T>().Find(id);
         }
@@ -37,6 +37,11 @@ namespace Infrastructure.Data.Repositories
         public void Update(T entity)
         {
             _context.Set<T>().Update(entity);
+            _context.SaveChanges();
+        }
+
+        public void SaveChanges()
+        {
             _context.SaveChanges();
         }
     }
