@@ -15,5 +15,7 @@ namespace Infrastructure.Data.Repositories
         {
             _context = context;
         }
+
+        
     }
 }

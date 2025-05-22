@@ -22,10 +22,11 @@ namespace Infrastructure.Data.Repositories
             return _context.Set<T>().Find(id);
         }
 
-        public void Create(T entity)
+        public T Create(T entity)
         {
             _context.Set<T>().Add(entity);
             _context.SaveChanges();
+            return entity;
         }
 
         public void Delete(T entity)
