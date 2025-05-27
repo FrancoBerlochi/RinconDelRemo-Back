@@ -1,7 +1,9 @@
 ﻿
+using Domain.Entities;
+
 namespace Domain.Interfaces
 {
-    public interface IKayakRepository
+    public interface IKayakRepository : IBaseRepository<Kayak>
     {
 
     }

@@ -1,4 +1,5 @@
 ﻿
+using Domain.Entities;
 namespace Application.Models
 {
     public class KayakDto
@@ -10,5 +11,28 @@ namespace Application.Models
         public string Status { get; set; }
         public string Description { get; set; }
         public int OwnerId { get; set; }
-    }
-}
+
+        public static KayakDto create(Kayak kayak)
+        {
+            var dto = new KayakDto();
+            dto.Id = kayak.Id;
+            dto.Name = kayak.Name;
+            dto.Color = kayak.Color;
+            dto.Type = kayak.Type;
+            dto.Status = kayak.Status;
+            dto.Description = kayak.Description;
+            dto.OwnerId = kayak.OwnerId;
+            return dto;
+        }
+    } 
+    
+
+
+
+
+
+
+
+
+
+ } 
