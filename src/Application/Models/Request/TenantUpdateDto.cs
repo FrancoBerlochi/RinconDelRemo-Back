@@ -5,35 +5,29 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
 
-namespace Domain.Entities
+namespace Application.Models.Request
 {
-    public abstract class User
+    public class TenantUpdateDto
     {
-        public int Id { get; set; }
-
+        
         [Column(TypeName = "nvarchar(100)")]
-        [Required]
         public string Name { get; set; }
 
+        
         [Column(TypeName = "nvarchar(100)")]
-        [Required]
         public string LastName { get; set; }
 
-        [Column(TypeName = "nvarchar(20)")]
-        [Required]  
-        [EmailAddress]
+        
+        [Column(TypeName = "nvarchar(100)")]
         public string Email { get; set; }
 
-        [Column(TypeName = "nvarchar(100)")]
-        [Required]
-        [PasswordPropertyText]
+        
+        [Column(TypeName = "nvarchar(64)")]
         public string Password { get; set; }
 
+        
         [Column(TypeName = "nvarchar(11)")]
-        [Required]
         public string Phone { get; set; }
-
     }
 }
