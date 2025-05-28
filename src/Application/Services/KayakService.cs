@@ -8,13 +8,13 @@ namespace Application.Services
 {
     public class KayakService : IKayakService
     {
-        private readonly IKayakRepository _KayakRepository;
-        public KayakService (IKayakRepository kayakRepository)
+        private readonly IKayakRepository _kayakRepository;
+        public KayakService(IKayakRepository kayakRepository)
         {
-            _KayakRepository = kayakRepository;
+            _kayakRepository = kayakRepository;
         }
 
-        public Kayak Create (int Id, KayakCreateRequest request)
+        public Kayak Create(int Id, KayakCreateRequest request)
         {
             var kayak = new Kayak();
             kayak.Name = request.Name;
@@ -23,54 +23,54 @@ namespace Application.Services
             kayak.Color = request.Color;
             kayak.Status = request.Status;
             kayak.OwnerId = Id;
-            
-            return _KayakRepository.Create(kayak);
-            
+
+            return _kayakRepository.Create(kayak);
+
         }
 
-        public void Update (int id, KayakUpdateRequest request)
+        public void Update(int id, KayakUpdateRequest request)
         {
-            var kayak = _KayakRepository.GetById(id);
+            var kayak = _kayakRepository.GetById(id);
             kayak.Name = request.Name;
             kayak.Description = request.Description;
             kayak.Type = request.Type;
             kayak.Color = request.Color;
             kayak.Status = request.Status;
 
-            _KayakRepository.Update(kayak);
+            _kayakRepository.Update(kayak);
 
         }
 
-        public void Delete (int id)
+        public void Delete(int id)
         {
-            var kayak = _KayakRepository.GetById (id);
+            var kayak = _kayakRepository.GetById(id);
             if (kayak == null)
             {
                 throw new Exception($"Kayak con el ID: {id}, no ha sido encontrado.");
             }
-            _KayakRepository.Delete(kayak);
+            _kayakRepository.Delete(kayak);
         }
 
         public List<KayakDto> GetAll()
-        { 
-            var kayaks= _KayakRepository.GetAll();
+        {
+            var kayaks = _kayakRepository.GetAll();
             return kayaks.Select(a => new KayakDto
             {
-                Id= a.Id,
+                Id = a.Id,
                 Name = a.Name,
-                Status= a.Status,
+                Status = a.Status,
                 Description = a.Description,
                 Color = a.Color,
                 Type = a.Type,
                 OwnerId = a.OwnerId,
-                
+
 
             }).ToList();
         }
 
         public KayakDto GetById(int id)
         {
-            var kayak = _KayakRepository.GetById(id);
+            var kayak = _kayakRepository.GetById(id);
             if (kayak == null)
             {
                 throw new Exception($"Kayak con el ID: {id}, no ha sido encontrado");
@@ -85,5 +85,6 @@ namespace Application.Services
                 Type = kayak.Type,
                 OwnerId = kayak.OwnerId,
             };
+        }
     }
 }
