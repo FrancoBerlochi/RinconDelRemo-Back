@@ -1,3 +1,8 @@
+using Application.Interfaces;
+using Application.Services;
+using Domain.Interfaces;
+using Infrastructure.Data.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +12,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+#region Services
+builder.Services.AddScoped<IKayakService, KayakService>();
+
+#endregion
+
+#region Repositories
+builder.Services.AddScoped<IKayakRepository, KayakRepository>();
+#endregion
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
