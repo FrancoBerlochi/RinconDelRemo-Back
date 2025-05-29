@@ -1,10 +1,15 @@
 using Application.Interfaces;
 using Application.Services;
 using Domain.Interfaces;
+using Infrastructure.Data;
 using Infrastructure.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Console.WriteLine($"Ambiente actual: {builder.Environment.EnvironmentName}");
 
 // Add services to the container.
 
@@ -12,6 +17,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+#region Database Configuration
+var connectionString = builder.Configuration.GetConnectionString("RinconDelRemoDB");
+builder.Services.AddDbContext<ApplicationContext>(options =>
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+#endregion
 
 #region Swagger config
 //builder.Services.AddSwaggerGen();
@@ -57,6 +68,7 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
 #endregion
 
 #region Services

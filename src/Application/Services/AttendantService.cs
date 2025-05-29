@@ -29,7 +29,7 @@ namespace Application.Services
                 Password = attendantCreateRequest.Password,
                 Phone = attendantCreateRequest.Phone
             };
-            _attendantRepository.Add(attendant);
+            _attendantRepository.Create(attendant);
             return attendant;
         }
 
