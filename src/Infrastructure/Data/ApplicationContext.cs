@@ -18,6 +18,7 @@ namespace Infrastructure.Data
         public DbSet<Owner> Owners { get; set; }
         public DbSet<Tenant> Tenants { get; set; }
         public DbSet<Kayak> Kayaks { get; set; }
+        public DbSet<Administrator> Admins { get; set; }
 
     }
 }
