@@ -3,18 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities;
 
 namespace Application.Models
 {
     public class TenantDto
     {   
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        
-        
+        public string Name { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Phone { get; set; } = string.Empty;
+
+        public static TenantDto Create(Tenant tenant)
+        {
+            var dto = new TenantDto();
+            dto.Id = tenant.Id;
+            dto.Name = tenant.Name;
+            dto.LastName = tenant.LastName;
+            dto.Email = tenant.Email;
+            dto.Phone = tenant.Phone;
+            return dto;
+        }
 
     }
 }
