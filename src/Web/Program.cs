@@ -5,6 +5,8 @@ using Infrastructure.Data;
 using Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -71,6 +73,21 @@ builder.Services.AddSwaggerGen(c =>
 
 #endregion
 
+#region Authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "https://rincondelremo.ciamlogin.com/404f8a9c-8bed-4081-8425-fb67edb49460/v2.0";
+        options.Audience = "8eed8731-13b7-4e6a-9481-416825ac461d";
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true
+        };
+    });
+
+builder.Services.AddAuthorization();
+#endregion
+
 #region Services
 builder.Services.AddScoped<IKayakService, KayakService>();
 
@@ -83,6 +100,10 @@ builder.Services.AddScoped<IKayakRepository, KayakRepository>();
 
 var app = builder.Build();
 
+app.UseSwaggerUI(c =>
+{
+    c.OAuthUsePkce();
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -90,11 +111,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseSwaggerUI(c =>
-{
-    c.OAuthUsePkce();
-});
 
 app.UseHttpsRedirection();
 
