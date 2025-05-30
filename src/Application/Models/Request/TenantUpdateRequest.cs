@@ -1,33 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Application.Models.Request
 {
-    public class TenantUpdateDto
+    public class TenantUpdateRequest
     {
-        
         [Column(TypeName = "nvarchar(100)")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
-        
         [Column(TypeName = "nvarchar(100)")]
-        public string LastName { get; set; }
+        public string LastName { get; set; } = string.Empty;
 
-        
-        [Column(TypeName = "nvarchar(100)")]
-        public string Email { get; set; }
+        [EmailAddress]
+        public string Email { get; set; } = string.Empty;
 
-        
         [Column(TypeName = "nvarchar(64)")]
-        public string Password { get; set; }
+        public string Password { get; set; } = string.Empty;
 
-        
         [Column(TypeName = "nvarchar(11)")]
-        public string Phone { get; set; }
+        public string Phone { get; set; } = string.Empty;
     }
 }
