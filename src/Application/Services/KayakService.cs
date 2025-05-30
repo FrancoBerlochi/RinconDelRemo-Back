@@ -31,6 +31,10 @@ namespace Application.Services
         public void Update(int id, KayakUpdateRequest request)
         {
             var kayak = _kayakRepository.GetById(id);
+            if (kayak == null)
+            {
+                throw new Exception($"Kayak con el ID: {id}, no ha sido encontrado.");
+            }
             kayak.Name = request.Name;
             kayak.Description = request.Description;
             kayak.Type = request.Type;
