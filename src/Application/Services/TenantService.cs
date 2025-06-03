@@ -39,7 +39,7 @@ namespace Application.Services
             tenant.Phone = tenantUpdateRequest.Phone;
             _tenantRepository.Update(tenant);
         }
-
+        
         public List<TenantDto> GetAll()
         {
             var tenants = _tenantRepository.GetAll();
