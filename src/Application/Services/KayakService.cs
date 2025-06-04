@@ -9,20 +9,23 @@ namespace Application.Services
     public class KayakService : IKayakService
     {
         private readonly IKayakRepository _kayakRepository;
-        public KayakService(IKayakRepository kayakRepository)
+        //private readonly IOwnerRepository _ownerRepository;
+        public KayakService(IKayakRepository kayakRepository) // ,IOwnerRepository ownerRepository)
         {
             _kayakRepository = kayakRepository;
+            //_ownerRepository = ownerRepository;
         }
 
-        public Kayak Create(int Id, KayakCreateRequest request)
+        public Kayak Create(KayakCreateRequest request)
         {
+   
             var kayak = new Kayak();
             kayak.Name = request.Name;
             kayak.Description = request.Description;
             kayak.Type = request.Type;
             kayak.Color = request.Color;
             kayak.Status = request.Status;
-            kayak.OwnerId = Id;
+            //kayak.OwnerId = (no lo se rick);
 
             return _kayakRepository.Create(kayak);
 
