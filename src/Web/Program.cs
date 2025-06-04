@@ -92,13 +92,14 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<IKayakService, KayakService>();
 builder.Services.AddScoped<IOwnerService, OwnerService>();
 builder.Services.AddScoped<ITenantService, TenantService>();
+builder.Services.AddScoped<IAttendantService, AttendantService>();
 #endregion
 
 #region Repositories
 builder.Services.AddScoped<IKayakRepository, KayakRepository>();
 builder.Services.AddScoped<ITenantRepository, TenantRepository>();
 builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
-
+builder.Services.AddScoped<IAttendantRepository, AttendantRepository>();
 #endregion
 
 
