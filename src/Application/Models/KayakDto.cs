@@ -21,18 +21,8 @@ namespace Application.Models
             dto.Type = kayak.Type;
             dto.Status = kayak.Status;
             dto.Description = kayak.Description;
-            dto.OwnerId = kayak.OwnerId;
+            dto.OwnerId = kayak.Owner.Id;
             return dto;
         }
     } 
-    
-
-
-
-
-
-
-
-
-
  } 
