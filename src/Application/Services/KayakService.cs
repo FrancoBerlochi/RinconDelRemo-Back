@@ -96,8 +96,7 @@ namespace Application.Services
 
         public List<Kayak> GetAvailableKayak()
         {
-            var kayaks = _kayakRepository.GetAvailableKayak();
-            return kayaks;
+            return _kayakRepository.GetAvailableKayak().ToList();
         }
     }
 }
