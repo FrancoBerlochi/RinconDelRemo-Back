@@ -15,5 +15,7 @@ namespace Application.Interfaces
         List<KayakDto> GetAll();
 
         KayakDto GetById(int id);
+
+        List<Kayak> GetAvailableKayak();
     }
 }
