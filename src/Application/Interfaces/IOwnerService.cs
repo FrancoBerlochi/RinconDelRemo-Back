@@ -13,9 +13,9 @@ namespace Application.Interfaces
     {
         List<OwnerDto> GetAll();
         OwnerDto GetById(int id);
+        OwnerDto? GetByNameLastName(string name, string lastname);
         Owner CreateOwner(OwnerCreateRequest ownerCreateRequest);
         void Update(int id, OwnerUpdateRequest ownerUpdateRequest);
         void Delete(int id);
-
     }
 }
