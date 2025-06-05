@@ -8,6 +8,7 @@ using Application.Interfaces;
 using Application.Models;
 using Application.Models.Request;
 using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Interfaces;
 
 namespace Application.Services
@@ -28,26 +29,44 @@ namespace Application.Services
 
         public OwnerDto? GetById(int id)
         {
-            var owner = _ownerRepository.GetById(id) ?? throw new Exception("Dueño no encontrado.");
+            var owner = _ownerRepository.GetById(id) ?? throw new NotFoundException("Dueño no encontrado.");
+            return OwnerDto.Create(owner);
+        }
+
+        public OwnerDto? GetByNameLastName(string name, string lastname)
+        {
+            var owner = _ownerRepository.GetByNameLastname(name, lastname) ?? throw new NotFoundException("Dueño no encontrado.");
             return OwnerDto.Create(owner);
         }
 
         public Owner CreateOwner(OwnerCreateRequest request)
         {
+            var existingOwnerWithSameEmail = _ownerRepository.GetByOwnerEmail(request.Email);
+            if (existingOwnerWithSameEmail != null)
+            {
+                throw new Exception("Ya existe un Dueño con el mismo correo electrónico.");
+            }
+
+            var existingOwnerWithSamePhone = _ownerRepository.GetByOwnerPhone(request.Phone);
+            if (existingOwnerWithSamePhone != null)
+            {
+                throw new Exception("Ya existe un Dueño con el mismo teléfono.");
+            }
+
             var owner = new Owner();
             owner.Name = request.Name;
             owner.LastName = request.LastName;
             owner.Email = request.Email;
             owner.Password = request.Password;
             owner.Phone = request.Phone;
-            
+
             _ownerRepository.Create(owner);
             return owner;
         }
 
         public void Update(int id, OwnerUpdateRequest request)
         {
-            var owner = _ownerRepository.GetById(id) ?? throw new Exception("Dueño no encontrado.");
+            var owner = _ownerRepository.GetById(id) ?? throw new NotFoundException("Dueño no encontrado.");
 
             owner.Email = request.Email ?? owner.Email;
             owner.Password = request.Password ?? owner.Password;
@@ -59,7 +78,7 @@ namespace Application.Services
 
         public void Delete(int id)
         {
-            var owner = _ownerRepository.GetById(id) ?? throw new Exception("Dueño no encontrado.");
+            var owner = _ownerRepository.GetById(id) ?? throw new NotFoundException("Dueño no encontrado.");
             _ownerRepository.Delete(owner);
         }
     }

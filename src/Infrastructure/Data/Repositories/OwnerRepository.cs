@@ -15,5 +15,20 @@ namespace Infrastructure.Data.Repositories
         {
             _context = context;
         }
+
+        public Owner? GetByNameLastname(string name, string lastname)
+        {
+            return _context.Owners.SingleOrDefault(o => o.Name == name && o.LastName == lastname);
+        }
+
+        public Owner GetByOwnerEmail(string email)
+        {
+            return _context.Owners.SingleOrDefault(o => o.Email == email);
+        }
+
+        public Owner GetByOwnerPhone(string phone)
+        {
+            return _context.Owners.SingleOrDefault(o => o.Phone == phone);
+        }
     }
 }
