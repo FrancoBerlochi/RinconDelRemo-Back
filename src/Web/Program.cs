@@ -100,6 +100,7 @@ builder.Services.AddScoped<IKayakRepository, KayakRepository>();
 builder.Services.AddScoped<ITenantRepository, TenantRepository>();
 builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
 builder.Services.AddScoped<IAttendantRepository, AttendantRepository>();
+builder.Services.AddScoped<IKayakReservationRepository, KayakReservationRepository>();
 #endregion
 
 
