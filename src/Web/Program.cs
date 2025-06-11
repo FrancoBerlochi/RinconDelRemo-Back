@@ -1,12 +1,18 @@
 using Application.Interfaces;
 using Application.Services;
 using Domain.Interfaces;
+using Infrastructure.Services;
 using Infrastructure.Data;
 using Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using static Infrastructure.Services.AuthenticationService;
+using System.Text;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +24,30 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+#region Swagger Authentication Config
+builder.Services.AddSwaggerGen(setupAction =>
+{
+    setupAction.AddSecurityDefinition("RinconDelRemoApiBearerAuth", new OpenApiSecurityScheme() //Esto va a permitir usar swagger con el token.
+    {
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        Description = "Pegar el token generado al loguearse."
+    });
+
+    setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "RinconDelRemoApiBearerAuth" } //Tiene que coincidir con el id seteado arriba en la definici�n
+                }, new List<string>() }
+    });
+
+});
+#endregion
 
 #region Database Configuration
 var connectionString = builder.Configuration.GetConnectionString("RinconDelRemoDB");
@@ -74,8 +103,27 @@ builder.Services.AddSwaggerGen(c =>
 #endregion
 
 #region Authentication
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+
+builder.Services.AddAuthentication()
+    .AddJwtBearer("LocalJwt", options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["AuthenticationService:Issuer"],
+
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["AuthenticationService:Audience"],
+
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.ASCII.GetBytes(builder.Configuration["AuthenticationService:SecretForKey"])),
+
+            NameClaimType = "NameIdentifier",
+            RoleClaimType = "Role"
+        };
+    })
+    .AddJwtBearer("AzureB2C", options =>
     {
         options.Authority = "https://rincondelremo.ciamlogin.com/404f8a9c-8bed-4081-8425-fb67edb49460/v2.0";
         options.Audience = "8eed8731-13b7-4e6a-9481-416825ac461d";
@@ -83,6 +131,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         {
             ValidateIssuer = true
         };
+
     });
 
 builder.Services.AddAuthorization();
@@ -93,6 +142,10 @@ builder.Services.AddScoped<IKayakService, KayakService>();
 builder.Services.AddScoped<IOwnerService, OwnerService>();
 builder.Services.AddScoped<ITenantService, TenantService>();
 builder.Services.AddScoped<IAttendantService, AttendantService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.Configure<AuthenticacionServiceOptions>(
+    builder.Configuration.GetSection(AuthenticacionServiceOptions.AuthenticacionService));
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 #endregion
 
 #region Repositories
@@ -101,6 +154,7 @@ builder.Services.AddScoped<ITenantRepository, TenantRepository>();
 builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
 builder.Services.AddScoped<IAttendantRepository, AttendantRepository>();
 builder.Services.AddScoped<IKayakReservationRepository, KayakReservationRepository>();
+
 #endregion
 
 
@@ -119,6 +173,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
