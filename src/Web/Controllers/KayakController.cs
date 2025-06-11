@@ -75,5 +75,10 @@ namespace Web.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet("[action]")]
+        public IActionResult GetAvailableKayak()
+        {
+            return Ok(_kayakService.GetAvailableKayak());
+        }
     }
 }

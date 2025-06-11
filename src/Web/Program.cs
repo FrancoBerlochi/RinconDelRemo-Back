@@ -42,7 +42,7 @@ builder.Services.AddSwaggerGen(setupAction =>
                 Reference = new OpenApiReference
                 {
                     Type = ReferenceType.SecurityScheme,
-                    Id = "RinconDelRemoApiBearerAuth" } //Tiene que coincidir con el id seteado arriba en la definición
+                    Id = "RinconDelRemoApiBearerAuth" } //Tiene que coincidir con el id seteado arriba en la definiciï¿½n
                 }, new List<string>() }
     });
 
@@ -153,6 +153,7 @@ builder.Services.AddScoped<IKayakRepository, KayakRepository>();
 builder.Services.AddScoped<ITenantRepository, TenantRepository>();
 builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
 builder.Services.AddScoped<IAttendantRepository, AttendantRepository>();
+builder.Services.AddScoped<IKayakReservationRepository, KayakReservationRepository>();
 
 #endregion
 

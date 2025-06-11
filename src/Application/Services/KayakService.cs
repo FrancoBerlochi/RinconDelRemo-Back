@@ -93,5 +93,10 @@ namespace Application.Services
                 OwnerId = kayak.OwnerId,
             };
         }
+
+        public List<Kayak> GetAvailableKayak()
+        {
+            return _kayakRepository.GetAvailableKayak().ToList();
+        }
     }
 }

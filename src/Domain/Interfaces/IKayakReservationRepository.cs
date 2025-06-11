@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities;
 
-namespace Domain.Entities
+namespace Domain.Interfaces
 {
-    public class Tenant : User
+    public interface IKayakReservationRepository: IBaseRepository<KayakReservation>
     {
-        public List<KayakReservation> KayakReservations { get; set; }
     }
 }
