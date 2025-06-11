@@ -1,8 +1,11 @@
 ﻿using Application.Interfaces;
 using Application.Models.Request;
 using Domain.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Security.Claims;
 
 namespace Web.Controllers
 {
@@ -16,10 +19,11 @@ namespace Web.Controllers
             _ownerService = ownerService;
         }
 
+        
         [HttpGet("hola")]
         public IActionResult Get() 
         {                                       // PRUEBA DE TOKEN!!!!!
-            return Ok(User);
+           return Ok("User");
         }
 
         [HttpGet("[action]")]
