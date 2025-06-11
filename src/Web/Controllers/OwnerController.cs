@@ -5,14 +5,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class OwnerController : ControllerBase
     {
         private readonly IOwnerService _ownerService;
         public OwnerController(IOwnerService ownerService)
         {
             _ownerService = ownerService;
+        }
+
+        [HttpGet("hola")]
+        public IActionResult Get() 
+        {                                       // PRUEBA DE TOKEN!!!!!
+            return Ok(User);
         }
 
         [HttpGet("[action]")]
