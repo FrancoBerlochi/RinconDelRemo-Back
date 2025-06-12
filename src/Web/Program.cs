@@ -110,14 +110,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("Clientes", policy =>
+    options.AddPolicy("Cliente", policy =>
         policy.RequireClaim("Tipo de usuario", "Cliente"));
 
-    options.AddPolicy("Duenios", policy =>
-        policy.RequireClaim("Tipo de usuario", "Duenio"));
+    options.AddPolicy("DuenioKayak", policy =>
+        policy.RequireClaim("Tipo de usuario", "DuenioKayak"));
 
-    options.AddPolicy("ClientesODuenios", policy =>
-        policy.RequireClaim("Tipo de usuario", "Cliente", "Duenio"));
+    options.AddPolicy("ClienteODuenio", policy =>
+        policy.RequireClaim("Tipo de usuario", "Cliente", "DuenioKayak"));
 });
 //.AddJwtBearer("LocalJwt", options =>
 //{
