@@ -19,9 +19,22 @@ namespace Web.Controllers
             _ownerService = ownerService;
         }
 
-        
+        [Authorize (Policy = "Clientes")]
+        [HttpGet ("chau")]
+        public IActionResult Geta()
+        {
+            return Ok("a");
+        }
+
+        [Authorize(Policy = "Duenio")]
+        [HttpGet("chaussss")]
+        public IActionResult Getb()
+        {
+            return Ok("b");
+        }
+
         [HttpGet("hola")]
-        public IActionResult Get() 
+        public IActionResult Getc() 
         {                                       // PRUEBA DE TOKEN!!!!!
            return Ok("User");
         }
