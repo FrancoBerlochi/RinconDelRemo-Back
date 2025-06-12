@@ -111,5 +111,31 @@ namespace Application.Services
             _kayakReservationRepository.Update(reservation);
             _kayakRepository.Update(kayak);
         }
+
+        public void CheckOut(int id)
+        {
+            var reservation = _kayakReservationRepository.GetById(id);
+            if (reservation == null)
+            {
+                throw new Exception("Reservation not found");
+            }
+            if (!reservation.IsCheckedOut)
+            {
+                throw new Exception("You must check-in first");
+            }
+            if (reservation.IsCheckedOut)
+            {
+                throw new Exception("Check-out has already been done");
+            }
+
+            reservation.IsCheckedOut = true;
+            reservation.CheckOutTime = DateTime.Now;
+
+            var kayak = _kayakRepository.GetById(reservation.KayakId);
+            kayak.Status = false;
+
+            _kayakReservationRepository.Update(reservation);
+            _kayakRepository.Update(kayak);
+        }
     }
 }
