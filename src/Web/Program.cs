@@ -12,6 +12,7 @@ using static Infrastructure.Services.AuthenticationService;
 using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Identity.Web;
 
 
 
@@ -100,41 +101,42 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-#endregion
+#endregion(
 
 #region Authentication
 
-builder.Services.AddAuthentication()
-    .AddJwtBearer("LocalJwt", options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidIssuer = builder.Configuration["AuthenticationService:Issuer"],
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+    //.AddJwtBearer("LocalJwt", options =>
+    //{
+    //    options.TokenValidationParameters = new TokenValidationParameters
+    //    {
+    //        ValidateIssuer = true,
+    //        ValidIssuer = builder.Configuration["AuthenticationService:Issuer"],
 
-            ValidateAudience = true,
-            ValidAudience = builder.Configuration["AuthenticationService:Audience"],
+    //        ValidateAudience = true,
+    //        ValidAudience = builder.Configuration["AuthenticationService:Audience"],
 
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.ASCII.GetBytes(builder.Configuration["AuthenticationService:SecretForKey"])),
+    //        ValidateIssuerSigningKey = true,
+    //        IssuerSigningKey = new SymmetricSecurityKey(
+    //            Encoding.ASCII.GetBytes(builder.Configuration["AuthenticationService:SecretForKey"])),
 
-            NameClaimType = "NameIdentifier",
-            RoleClaimType = "Role"
-        };
-    })
-    .AddJwtBearer("AzureB2C", options =>
-    {
-        options.Authority = "https://rincondelremo.ciamlogin.com/404f8a9c-8bed-4081-8425-fb67edb49460/v2.0";
-        options.Audience = "8eed8731-13b7-4e6a-9481-416825ac461d";
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true
-        };
+    //        NameClaimType = "NameIdentifier",
+    //        RoleClaimType = "Role"
+    //    };
+    //})
+    //.AddJwtBearer("AzureB2C", options =>
+    //{
+    //    options.Authority = "https://rincondelremo.ciamlogin.com/404f8a9c-8bed-4081-8425-fb67edb49460/v2.0";
+    //    options.Audience = "8eed8731-13b7-4e6a-9481-416825ac461d";
+    //    options.TokenValidationParameters = new TokenValidationParameters
+    //    {
+    //        ValidateIssuer = true,
+             
+    //    };
 
-    });
+    //});
 
-builder.Services.AddAuthorization();
 #endregion
 
 #region Services
