@@ -9,7 +9,6 @@ namespace Application.Models.Request
 {
     public class AttendantUpdateRequest
     {
-        private int Id { get; set; }
         [EmailAddress]
         public string Email { get; set; } = string.Empty;
 

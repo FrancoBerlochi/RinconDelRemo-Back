@@ -6,16 +6,14 @@ namespace Application.Interfaces
 {
     public interface IKayakService
     {
-        Kayak Create(KayakCreateRequest request);
-
+        KayakDto Create(KayakCreateRequest request);
         void Update(int id, KayakUpdateRequest request);
-
         void Delete(int id);
-
         List<KayakDto> GetAll();
-
         KayakDto GetById(int id);
-
-        List<Kayak> GetAvailableKayak();
+        List<KayakDto> GetAvailableKayak();
+        List<KayakDto> GetKayakByOwner(int ownerId);
+        void EnableKayak(int kayakId);//, int ownerId);
+        void DisableKayak(int kayakId);//, int ownerId);
     }
 }
