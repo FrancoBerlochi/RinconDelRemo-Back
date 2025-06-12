@@ -14,9 +14,13 @@ namespace Application.Services
     public class AttendantService : IAttendantService
     {
         private readonly IAttendantRepository _attendantRepository;
-        public AttendantService(IAttendantRepository attendantRepository)
+        private readonly IKayakReservationRepository _kayakReservationRepository;
+        private readonly IKayakRepository _kayakRepository;
+        public AttendantService(IAttendantRepository attendantRepository, IKayakReservationRepository kayakReservationRepository, IKayakRepository kayakRepository)
         {
             _attendantRepository = attendantRepository;
+            _kayakReservationRepository = kayakReservationRepository;
+            _kayakRepository = kayakRepository;
         }
 
         public Attendant Create(AttendantCreateRequest attendantCreateRequest)
@@ -84,6 +88,54 @@ namespace Application.Services
                 throw new Exception($"Attendant with id {id} not found"); //Cambiar por un custom exception
             }
             _attendantRepository.Delete(attendant);
+        }
+
+        public void CheckIn(int id)
+        {
+            var reservation = _kayakReservationRepository.GetById(id);
+            if (reservation == null)
+            {
+                throw new Exception("Reservation not found");
+            }
+            if (reservation.IsCheckedIn)
+            {
+                throw new Exception("Check-in has already been done");
+            }
+
+            reservation.IsCheckedIn = true;
+            reservation.CheckInTime = DateTime.Now;
+
+            var kayak = _kayakRepository.GetById(reservation.KayakId);
+            kayak.Status = true;
+
+            _kayakReservationRepository.Update(reservation);
+            _kayakRepository.Update(kayak);
+        }
+
+        public void CheckOut(int id)
+        {
+            var reservation = _kayakReservationRepository.GetById(id);
+            if (reservation == null)
+            {
+                throw new Exception("Reservation not found");
+            }
+            if (!reservation.IsCheckedOut)
+            {
+                throw new Exception("You must check-in first");
+            }
+            if (reservation.IsCheckedOut)
+            {
+                throw new Exception("Check-out has already been done");
+            }
+
+            reservation.IsCheckedOut = true;
+            reservation.CheckOutTime = DateTime.Now;
+
+            var kayak = _kayakRepository.GetById(reservation.KayakId);
+            kayak.Status = false;
+
+            _kayakReservationRepository.Update(reservation);
+            _kayakRepository.Update(kayak);
         }
     }
 }

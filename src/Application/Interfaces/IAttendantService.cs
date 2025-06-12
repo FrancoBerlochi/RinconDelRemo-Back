@@ -16,5 +16,8 @@ namespace Application.Interfaces
         AttendantDto GetById(int id);
         void Update(int id, AttendantUpdateRequest attendantUpdateRequest);
         Attendant Create(AttendantCreateRequest attendantCreateRequest);
+
+        void CheckIn(int id);
+        void CheckOut(int id);
     }
 }
