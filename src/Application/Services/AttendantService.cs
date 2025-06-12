@@ -106,7 +106,7 @@ namespace Application.Services
             reservation.CheckInTime = DateTime.Now;
 
             var kayak = _kayakRepository.GetById(reservation.KayakId);
-            kayak.Status = true;
+            kayak.IsAvailable = true;
 
             _kayakReservationRepository.Update(reservation);
             _kayakRepository.Update(kayak);
@@ -132,7 +132,7 @@ namespace Application.Services
             reservation.CheckOutTime = DateTime.Now;
 
             var kayak = _kayakRepository.GetById(reservation.KayakId);
-            kayak.Status = false;
+            kayak.IsAvailable = false;
 
             _kayakReservationRepository.Update(reservation);
             _kayakRepository.Update(kayak);
