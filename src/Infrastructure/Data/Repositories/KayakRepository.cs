@@ -12,7 +12,24 @@ namespace Infrastructure.Data.Repositories
         }
         public List<Kayak> GetAvailableKayak()
         {
-            return _context.Kayaks.Where(k => k.Status == true).ToList();
+            return _context.Kayaks.Where(k => k.IsAvailable == true).ToList();
+        }
+
+        public List<Kayak> GetByOwnerId(int ownerId)
+        {
+            return _context.Kayaks.Where(k => k.Owner.Id == ownerId).ToList();
+        }
+
+        public void EnableKayak(Kayak kayak)
+        {
+            kayak.IsAvailable = true;
+            _context.SaveChanges();
+        }
+
+        public void DisableKayak(Kayak kayak)
+        {
+            kayak.IsAvailable = false;
+            _context.SaveChanges();
         }
     }
 }

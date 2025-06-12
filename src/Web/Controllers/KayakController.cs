@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using System.Security.Claims;
+using Application.Interfaces;
 using Application.Models.Request;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,7 @@ namespace Web.Controllers
         {
             _kayakService = kayakService;
         }
+
         [HttpGet("[action]")]
         public IActionResult GetAll()
         {
@@ -37,15 +39,8 @@ namespace Web.Controllers
         [HttpPost("[action]")]
         public IActionResult CreateKayak([FromBody] KayakCreateRequest request)
         {
-            try
-            {
-                var result = _kayakService.Create(request);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var obj = _kayakService.Create(request);
+            return CreatedAtAction(nameof(GetById), new { id = obj.Id }, obj);
         }
 
         [HttpPut("[action]/{id}")]
@@ -78,7 +73,57 @@ namespace Web.Controllers
         [HttpGet("[action]")]
         public IActionResult GetAvailableKayak()
         {
-            return Ok(_kayakService.GetAvailableKayak());
+            try
+            {
+                return Ok(_kayakService.GetAvailableKayak());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpGet("[action]/{ownerId}")]
+        public IActionResult GetKayakByOwner(int ownerId)
+        {
+            try
+            {
+                return Ok(_kayakService.GetKayakByOwner(ownerId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("enable/{kayakId}")]
+        public IActionResult EnableKayak(int kayakId)
+        {
+            try
+            {
+                _kayakService.EnableKayak(kayakId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpPut("disable/{kayakId}")]
+        public IActionResult DisableKayak(int kayakId)
+        {
+            try
+            {
+                _kayakService.DisableKayak(kayakId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

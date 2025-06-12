@@ -2,6 +2,7 @@
 using Application.Models;
 using Application.Models.Request;
 using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Interfaces;
 
 namespace Application.Services
@@ -9,26 +10,30 @@ namespace Application.Services
     public class KayakService : IKayakService
     {
         private readonly IKayakRepository _kayakRepository;
-        //private readonly IOwnerRepository _ownerRepository;
-        public KayakService(IKayakRepository kayakRepository) // ,IOwnerRepository ownerRepository)
+        private readonly IOwnerRepository _ownerRepository;
+        public KayakService(IKayakRepository kayakRepository, IOwnerRepository ownerRepository)
         {
             _kayakRepository = kayakRepository;
-            //_ownerRepository = ownerRepository;
+            _ownerRepository = ownerRepository;
         }
 
-        public Kayak Create(KayakCreateRequest request)
+        public KayakDto Create(KayakCreateRequest request)
         {
-   
+            //Owner authenticatedOwner = _ownerRepository.GetById(ownerId);
+
             var kayak = new Kayak();
             kayak.Name = request.Name;
-            kayak.Description = request.Description;
-            kayak.Type = request.Type;
+            kayak.Model = request.Model;
+            kayak.Capacity = request.Capacity;
+            kayak.Length = request.Length;
+            kayak.Material = request.Material;
+            kayak.PublicationDate = DateTime.Now;
             kayak.Color = request.Color;
-            kayak.Status = request.Status;
-            //kayak.OwnerId = (no lo se rick);
+            //kayak.Owner = authenticatedOwner;
+            kayak.IsAvailable = false;
 
-            return _kayakRepository.Create(kayak);
-
+            var newKayak = _kayakRepository.Create(kayak);
+            return KayakDto.Create(newKayak);
         }
 
         public void Update(int id, KayakUpdateRequest request)
@@ -39,13 +44,13 @@ namespace Application.Services
                 throw new Exception($"Kayak con el ID: {id}, no ha sido encontrado.");
             }
             kayak.Name = request.Name;
-            kayak.Description = request.Description;
-            kayak.Type = request.Type;
+            kayak.Model = request.Model;
+            kayak.Capacity = request.Capacity;
+            kayak.Length = request.Length;
+            kayak.Material = request.Material;
             kayak.Color = request.Color;
-            kayak.Status = request.Status;
 
             _kayakRepository.Update(kayak);
-
         }
 
         public void Delete(int id)
@@ -53,7 +58,7 @@ namespace Application.Services
             var kayak = _kayakRepository.GetById(id);
             if (kayak == null)
             {
-                throw new Exception($"Kayak con el ID: {id}, no ha sido encontrado.");
+                throw new NotFoundException($"Kayak con el ID: {id}, no ha sido encontrado.");
             }
             _kayakRepository.Delete(kayak);
         }
@@ -61,42 +66,63 @@ namespace Application.Services
         public List<KayakDto> GetAll()
         {
             var kayaks = _kayakRepository.GetAll();
-            return kayaks.Select(a => new KayakDto
-            {
-                Id = a.Id,
-                Name = a.Name,
-                Status = a.Status,
-                Description = a.Description,
-                Color = a.Color,
-                Type = a.Type,
-                OwnerId = a.OwnerId,
-
-
-            }).ToList();
+            return kayaks.Select(KayakDto.Create).ToList();
         }
 
-        public KayakDto GetById(int id)
+        public KayakDto? GetById(int id)
         {
-            var kayak = _kayakRepository.GetById(id);
-            if (kayak == null)
+            var kayak = _kayakRepository.GetById(id) ?? throw new NotFoundException("Kayak no encontrado.");
+            return KayakDto.Create(kayak);
+        }
+
+        public List<KayakDto> GetAvailableKayak()
+        {
+            var kayaks = _kayakRepository.GetAvailableKayak();
+
+            if (kayaks == null || !kayaks.Any())
             {
-                throw new Exception($"Kayak con el ID: {id}, no ha sido encontrado");
+                throw new NotFoundException("No hay kayaks disponibles en este momento.");
             }
-            return new KayakDto
-            {
-                Id = kayak.Id,
-                Name = kayak.Name,
-                Status = kayak.Status,
-                Description = kayak.Description,
-                Color = kayak.Color,
-                Type = kayak.Type,
-                OwnerId = kayak.OwnerId,
-            };
+
+            return kayaks.Select(KayakDto.Create).ToList();
         }
 
-        public List<Kayak> GetAvailableKayak()
+        public List<KayakDto> GetKayakByOwner(int ownerId)
         {
-            return _kayakRepository.GetAvailableKayak().ToList();
+            var kayaks = _kayakRepository.GetByOwnerId(ownerId) ?? throw new NotFoundException("Dueño no encontrado.");
+
+            if (kayaks == null || !kayaks.Any())
+            {
+                throw new NotFoundException("El dueño no tiene kayaks registrados.");
+            }
+
+            return kayaks.Select(KayakDto.Create).ToList();
+        }
+
+        public void EnableKayak(int kayakId)//, int ownerId)
+        {
+           // Owner? owner = _ownerRepository.GetById(ownerId) ?? throw new NotFoundException("Dueño no encontrado.");
+            Kayak? kayak = _kayakRepository.GetById(kayakId) ?? throw new NotFoundException("Kayak no encontrado.");
+
+          //  if (kayak.Owner.Id != ownerId)
+          //  {
+           //     throw new UnauthorizedAccessException("No tiene permiso para modificar el kayak.");
+           // }
+
+            _kayakRepository.EnableKayak(kayak);
+        }
+
+        public void DisableKayak(int kayakId)//, int ownerId)
+        {
+            //Owner? owner = _ownerRepository.GetById(ownerId) ?? throw new NotFoundException("Dueño no encontrado.");
+            Kayak? kayak = _kayakRepository.GetById(kayakId) ?? throw new NotFoundException("Kayak no encontrado.");
+
+          //  if (kayak.Owner.Id != ownerId)
+          //  {
+          //      throw new UnauthorizedAccessException("No tiene permiso para modificar el kayak.");
+          //  }
+
+            _kayakRepository.DisableKayak(kayak);
         }
     }
 }

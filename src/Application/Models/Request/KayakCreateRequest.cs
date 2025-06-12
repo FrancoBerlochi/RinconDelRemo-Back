@@ -1,13 +1,17 @@
 ﻿
 
+using Domain.Enums;
+
 namespace Application.Models.Request
 {
     public class KayakCreateRequest
     {
         public string Name { get; set; } = string.Empty;
-        public string Color { get; set; } = string.Empty;   
-        public string Type { get; set; } = string.Empty;
-        public bool Status { get; set; }
-        public string Description { get; set; } = string.Empty;
+        public string Model { get; set; } = string.Empty;
+        public string Color { get; set; } = string.Empty;
+        public int Capacity { get; set; } 
+        public string Length { get; set; } 
+        public Material Material { get; set; } 
+        public DateTime PublicationDate { get; set; }
     }
 }
