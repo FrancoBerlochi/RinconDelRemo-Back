@@ -95,11 +95,11 @@ namespace Application.Services
             var reservation = _kayakReservationRepository.GetById(id);
             if (reservation == null)
             {
-                throw new Exception("Reservation not found");
+                throw new Exception("Reserva no encontrada");
             }
             if (reservation.IsCheckedIn)
             {
-                throw new Exception("Check-in has already been done");
+                throw new Exception("Ya se realizó el check-in");
             }
 
             reservation.IsCheckedIn = true;
@@ -117,15 +117,15 @@ namespace Application.Services
             var reservation = _kayakReservationRepository.GetById(id);
             if (reservation == null)
             {
-                throw new Exception("Reservation not found");
+                throw new Exception("Reserva no encontrada");
             }
             if (!reservation.IsCheckedOut)
             {
-                throw new Exception("You must check-in first");
+                throw new Exception("Primero debe realizar el check-in");
             }
             if (reservation.IsCheckedOut)
             {
-                throw new Exception("Check-out has already been done");
+                throw new Exception("Ya se realizó el check-out ");
             }
 
             reservation.IsCheckedOut = true;

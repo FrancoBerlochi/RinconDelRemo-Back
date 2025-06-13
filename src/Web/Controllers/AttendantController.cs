@@ -79,5 +79,32 @@ namespace Web.Controllers
             }
         }
 
+        [HttpPost("checkin/{id}")]
+        public IActionResult CheckIn(int id)
+        {
+            try
+            {
+                _attendantService.CheckIn(id);
+                return Ok("Check-in realizado con éxito");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("checkout/{id}")]
+        public IActionResult CheckOut(int id)
+        {
+            try
+            {
+                _attendantService.CheckOut(id);
+                return Ok("Check-out realizado con éxito");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
