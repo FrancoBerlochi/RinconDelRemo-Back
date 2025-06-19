@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Application.Models;
 using Application.Models.Request;
+
 using Domain.Entities;
 
 namespace Application.Interfaces
@@ -17,5 +18,7 @@ namespace Application.Interfaces
         public void Update(int id, KayakReservationUpdateRequest request);
         public void Delete(int id);
         public void CanceledReservation(int id);
+        public List<KayakReservationDto> GetReservations(DateTime? date, int? tenantId);
+
     }
 }
