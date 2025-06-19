@@ -63,10 +63,26 @@ namespace Application.Services
             _kayakReservationRepository.Delete(reserva);
         }
 
+
         public List<KayakReservationDto> GetReservations(DateTime? date, int? tenantId)
         {
             var reservas = _kayakReservationRepository.GetFiltered(date, tenantId);
             return reservas.Select(KayakReservationDto.Create).ToList();
+        }
+        
+        public void CanceledReservation(int id)
+        {
+            var reserva = _kayakReservationRepository.GetById(id);
+            if (reserva == null)
+            {
+                throw new Exception("La reserva no existe.");
+            }
+            if (reserva.StatusReservation == StatusReservation.Canceled)
+            {
+                throw new Exception("La reserva ya está cancelada.");
+            }
+            reserva.StatusReservation = StatusReservation.Canceled;
+            _kayakReservationRepository.Update(reserva);
         }
     }
 }

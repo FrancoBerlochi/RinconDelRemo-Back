@@ -8,6 +8,7 @@ using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Infrastructure.Data.Repositories
 {
     public class KayakReservationRepository : BaseRepository<KayakReservation>, IKayakReservationRepository
@@ -17,6 +18,7 @@ namespace Infrastructure.Data.Repositories
         {
             _context = context;
         }
+
 
         public IEnumerable<KayakReservation> GetFiltered(DateTime? date, int? tenantId)
         {
@@ -37,5 +39,6 @@ namespace Infrastructure.Data.Repositories
 
             return query.ToList();
         }
+
     }
 }

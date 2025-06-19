@@ -167,6 +167,7 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.Configure<AuthenticacionServiceOptions>(
     builder.Configuration.GetSection(AuthenticacionServiceOptions.AuthenticacionService));
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IKayakReservationService, KayakReservationService>();
 #endregion
 
 #region Repositories
