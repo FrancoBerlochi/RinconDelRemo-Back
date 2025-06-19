@@ -115,5 +115,12 @@ namespace Web.Controllers
             var respuesta = _kayakReservationService.GetReservations(date, tentantId);
             return Ok(respuesta);
         }
+
+        [HttpGet("checkins-checkouts")]
+        public IActionResult GetHistory()
+        {
+            var historial = _kayakReservationService.GetCheckInCheckOutHistory();
+            return Ok(historial);
+        }
     }
 }
