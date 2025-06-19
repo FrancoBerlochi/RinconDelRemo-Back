@@ -21,7 +21,7 @@ namespace Domain.Entities
         [Required]
         public string LastName { get; set; }
 
-        [Column(TypeName = "nvarchar(20)")]
+        [Column(TypeName = "nvarchar(100)")]
         [Required]  
         [EmailAddress]
         public string Email { get; set; }

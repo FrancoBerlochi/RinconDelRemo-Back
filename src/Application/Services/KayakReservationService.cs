@@ -62,6 +62,13 @@ namespace Application.Services
             var reserva = _kayakReservationRepository.GetById(id) ?? throw new NotFoundException("Reserva no encontrada.");
             _kayakReservationRepository.Delete(reserva);
         }
+
+
+        public List<KayakReservationDto> GetReservations(DateTime? date, int? tenantId)
+        {
+            var reservas = _kayakReservationRepository.GetFiltered(date, tenantId);
+            return reservas.Select(KayakReservationDto.Create).ToList();
+        }
         
         public void CanceledReservation(int id)
         {
