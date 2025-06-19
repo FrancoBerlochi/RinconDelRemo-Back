@@ -12,9 +12,11 @@ namespace Web.Controllers
     public class AttendantController : ControllerBase
     {
         private readonly IAttendantService _attendantService;
-        public AttendantController(IAttendantService attendantService)
+        private readonly IKayakReservationService _kayakReservationService;
+        public AttendantController(IAttendantService attendantService, IKayakReservationService kayakReservationService)
         {
             _attendantService = attendantService;
+            _kayakReservationService = kayakReservationService;
         }
 
         [HttpGet("[action]")]
@@ -105,6 +107,13 @@ namespace Web.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet("reservations")]
+        public IActionResult GetReservations([FromQuery] DateTime? date, [FromQuery] int? tentantId)
+        {
+            var respuesta = _kayakReservationService.GetReservations(date, tentantId);
+            return Ok(respuesta);
         }
     }
 }
