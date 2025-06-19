@@ -62,5 +62,20 @@ namespace Application.Services
             var reserva = _kayakReservationRepository.GetById(id) ?? throw new NotFoundException("Reserva no encontrada.");
             _kayakReservationRepository.Delete(reserva);
         }
+        
+        public void CanceledReservation(int id)
+        {
+            var reserva = _kayakReservationRepository.GetById(id);
+            if (reserva == null)
+            {
+                throw new Exception("La reserva no existe.");
+            }
+            if (reserva.StatusReservation == StatusReservation.Canceled)
+            {
+                throw new Exception("La reserva ya está cancelada.");
+            }
+            reserva.StatusReservation = StatusReservation.Canceled;
+            _kayakReservationRepository.Update(reserva);
+        }
     }
 }
