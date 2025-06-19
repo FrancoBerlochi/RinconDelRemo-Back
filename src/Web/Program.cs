@@ -13,6 +13,7 @@ using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
+using Application.UsesCases;
 
 
 
@@ -172,6 +173,12 @@ builder.Services.AddScoped<IKayakReservationRepository, KayakReservationReposito
 
 #endregion
 
+#region MercadoPago
+builder.Services.AddSingleton<IPaymentService>(provider =>
+    new MercadoPagoService("APP_USR-8203332625940662-061915-c4e2ad5f8f8f38c243ffa8ca0e22935c-2503974515"));
+builder.Services.AddTransient<CreatePaymentUseCase>();
+
+#endregion
 
 var app = builder.Build();
 
