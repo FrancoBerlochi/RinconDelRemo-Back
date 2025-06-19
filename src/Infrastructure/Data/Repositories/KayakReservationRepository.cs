@@ -40,5 +40,13 @@ namespace Infrastructure.Data.Repositories
             return query.ToList();
         }
 
+        public List<KayakReservation> GetAllWithIncludes()
+        {
+            return _context.KayaksReservations
+                .Include(r => r.Kayak)
+                .Include(r => r.Tenant)
+                .ToList();
+        }
+
     }
 }

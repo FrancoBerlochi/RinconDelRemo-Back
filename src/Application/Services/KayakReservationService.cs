@@ -84,5 +84,19 @@ namespace Application.Services
             reserva.StatusReservation = StatusReservation.Canceled;
             _kayakReservationRepository.Update(reserva);
         }
+
+        public List<KayakReservationHistoryDto> GetCheckInCheckOutHistory()
+        {
+            var respuesta = _kayakReservationRepository.GetAllWithIncludes();
+            return respuesta.Select(r => new KayakReservationHistoryDto
+            {
+                KayakName = r.Kayak.Name,
+                TenantFullName = $"{r.Tenant.Name} {r.Tenant.LastName}",
+                CheckInTime = r.FechaInicio,
+                CheckOutTime = r.FechaFin,
+                Estado = r.StatusReservation.ToString()
+            }).ToList();
+
+        }
     }
 }

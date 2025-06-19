@@ -10,5 +10,6 @@ namespace Domain.Interfaces
     public interface IKayakReservationRepository: IBaseRepository<KayakReservation>
     {
         IEnumerable<KayakReservation> GetFiltered(DateTime? date, int? tenantId);
+        public List<KayakReservation> GetAllWithIncludes();
     }
 }
