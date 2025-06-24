@@ -87,22 +87,46 @@ namespace Web.Controllers
         [HttpGet("activas")]
         public ActionResult<List<KayakReservationDto>> GetActiveReservations()
         {
-            var reservas = _kayakReservationService.GetActiveReservations();
-            return Ok(reservas);
+            try
+            {
+                var reservas = _kayakReservationService.GetActiveReservations();
+                return Ok(reservas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpGet("canceladas")]
         public ActionResult<List<KayakReservationDto>> GetCancelledReservations()
         {
-            var reservas = _kayakReservationService.GetCancelledReservations();
-            return Ok(reservas);
+            try
+            {
+                var reservas = _kayakReservationService.GetCancelledReservations();
+                return Ok(reservas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpGet("finalizadas")]
         public ActionResult<List<KayakReservationDto>> GetCompletedReservations()
         {
-            var reservas = _kayakReservationService.GetCompletedReservations();
-            return Ok(reservas);
+            try
+            {
+                var reservas = _kayakReservationService.GetCompletedReservations();
+                return Ok(reservas);
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
     }
 }
