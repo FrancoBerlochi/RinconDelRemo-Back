@@ -98,5 +98,35 @@ namespace Application.Services
             }).ToList();
 
         }
+
+        public List<KayakReservationDto> GetActiveReservations()
+        {
+            var reservas = _kayakReservationRepository.GetByStatus(StatusReservation.Active);
+            if (reservas == null)
+            {
+                throw new NotFoundException("No se han encontrado Reservas activas.");
+            }
+            return reservas.Select(KayakReservationDto.Create).ToList();
+        }
+
+        public List<KayakReservationDto> GetCancelledReservations()
+        {
+            var reservas = _kayakReservationRepository.GetByStatus(StatusReservation.Canceled);
+            if (reservas == null)
+            {
+                throw new NotFoundException("No se han encontrado Reservas canceladas.");
+            }
+            return reservas.Select(KayakReservationDto.Create).ToList();
+        }
+
+        public List<KayakReservationDto> GetCompletedReservations()
+        {
+            var reservas = _kayakReservationRepository.GetByStatus(StatusReservation.Finished);
+            if (reservas == null)
+            {
+                throw new NotFoundException("No se han encontrado Reservas finalizadas.");
+            }
+            return reservas.Select(KayakReservationDto.Create).ToList();
+        }
     }
 }
