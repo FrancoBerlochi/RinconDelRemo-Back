@@ -14,10 +14,17 @@ public class WeatherController : ControllerBase
         _weatherService = weatherService;
     }
 
-    [HttpGet("{city}")]
-    public async Task<IActionResult> GetWeather(string city)
+    [HttpGet("clima")]
+    public async Task<IActionResult> GetWeather()
     {
-        var weather = await _weatherService.GetWeatherAsync(city);
+        var weather = await _weatherService.GetWeatherAsync();
         return Ok(weather);
+    }
+
+    [HttpGet("week")]
+    public async Task<IActionResult> GetWeeklyForecast()
+    {
+        var forecast = await _weatherService.GetWeeklyForecastAsync();
+        return Ok(forecast);
     }
 }

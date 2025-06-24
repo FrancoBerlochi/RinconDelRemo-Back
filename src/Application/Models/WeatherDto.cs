@@ -8,8 +8,13 @@ namespace Application.Models
 {
     public class WeatherDto
     {
-        public string City { get; set; } = string.Empty;
+        public string City { get; set; } = "Rosario";
         public string Description { get; set; } = string.Empty;
         public float Temperature { get; set; }
+        public float WindSpeed { get; set; }
+        public float minTemperature { get; set; }
+        public float maxTemperature { get; set; }
+        public List<string> Weather { get; set; } = new List<string>();
+
     }
 }

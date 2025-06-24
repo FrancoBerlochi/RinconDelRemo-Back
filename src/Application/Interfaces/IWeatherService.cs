@@ -9,6 +9,7 @@ namespace Application.Interfaces
 {
     public interface IWeatherService
     {
-        Task<WeatherDto> GetWeatherAsync(string city);
+        Task<WeatherDto> GetWeatherAsync();
+        Task<List<ForecastDayDto>> GetWeeklyForecastAsync();
     }
 }
