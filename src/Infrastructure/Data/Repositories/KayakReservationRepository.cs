@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Application.Models;
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,6 +46,15 @@ namespace Infrastructure.Data.Repositories
             return _context.KayaksReservations
                 .Include(r => r.Kayak)
                 .Include(r => r.Tenant)
+                .ToList();
+        }
+
+        public IEnumerable<KayakReservation> GetByStatus(StatusReservation status)
+        {
+            return _context.KayaksReservations
+                .Include(r => r.Kayak)
+                .Include(r => r.Tenant)
+                .Where(r => r.StatusReservation == status)
                 .ToList();
         }
 

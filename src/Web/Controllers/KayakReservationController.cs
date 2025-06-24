@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Models;
 using Application.Models.Request;
 using Application.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -81,6 +82,27 @@ namespace Web.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet("activas")]
+        public ActionResult<List<KayakReservationDto>> GetActiveReservations()
+        {
+            var reservas = _kayakReservationService.GetActiveReservations();
+            return Ok(reservas);
+        }
+
+        [HttpGet("canceladas")]
+        public ActionResult<List<KayakReservationDto>> GetCancelledReservations()
+        {
+            var reservas = _kayakReservationService.GetCancelledReservations();
+            return Ok(reservas);
+        }
+
+        [HttpGet("finalizadas")]
+        public ActionResult<List<KayakReservationDto>> GetCompletedReservations()
+        {
+            var reservas = _kayakReservationService.GetCompletedReservations();
+            return Ok(reservas);
         }
     }
 }
