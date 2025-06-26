@@ -21,7 +21,7 @@ namespace Application.Interfaces
         public void CanceledReservation(int id);
         public List<KayakReservationDto> GetReservations(DateTime? date, int? tenantId);
         public List<KayakReservationHistoryDto> GetCheckInCheckOutHistory();
-        IEnumerable<KayakReservation> GetByStatus(StatusReservation status);
+        //IEnumerable<KayakReservation> GetByStatus(StatusReservation status);
         List<KayakReservationDto> GetActiveReservations();
         List<KayakReservationDto> GetCancelledReservations();
         List<KayakReservationDto> GetCompletedReservations();
