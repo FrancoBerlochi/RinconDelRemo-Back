@@ -207,20 +207,20 @@ builder.Services.AddTransient<CreatePaymentUseCase>();
 var app = builder.Build();
 
 // Middleware global de manejo de excepciones
-app.UseExceptionHandler(errorApp =>
-{
-    errorApp.Run(async context =>
-    {
-        var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
-var exception = exceptionHandlerPathFeature?.Error;
+//app.UseExceptionHandler(errorApp =>
+//{
+//    errorApp.Run(async context =>
+//    {
+//        var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+//var exception = exceptionHandlerPathFeature?.Error;
 
-Console.WriteLine($"Error global: {exception?.Message}");
-Console.WriteLine(exception?.StackTrace);
+//Console.WriteLine($"Error global: {exception?.Message}");
+//Console.WriteLine(exception?.StackTrace);
 
-context.Response.StatusCode = 500;
-await context.Response.WriteAsync("Error interno del servidor");
-    });
-});
+//context.Response.StatusCode = 500;
+//await context.Response.WriteAsync("Error interno del servidor");
+//    });
+//});
 
 app.UseSwaggerUI(c =>
 {
