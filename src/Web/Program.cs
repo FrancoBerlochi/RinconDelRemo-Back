@@ -31,28 +31,29 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 #region Swagger Authentication Config
-builder.Services.AddSwaggerGen(setupAction =>
-{
-    setupAction.AddSecurityDefinition("RinconDelRemoApiBearerAuth", new OpenApiSecurityScheme() //Esto va a permitir usar swagger con el token.
-    {
-        Type = SecuritySchemeType.Http,
-        Scheme = "Bearer",
-        Description = "Pegar el token generado al loguearse."
-    });
+builder.Services.AddSwaggerGen(//setupAction =>
+//{
+//    setupAction.AddSecurityDefinition("RinconDelRemoApiBearerAuth", new OpenApiSecurityScheme() //Esto va a permitir usar swagger con el token.
+//    {
+//        Type = SecuritySchemeType.Http,
+//        Scheme = "Bearer",
+//        Description = "Pegar el token generado al loguearse."
+//    });
 
-    setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "RinconDelRemoApiBearerAuth" } //Tiene que coincidir con el id seteado arriba en la definici�n
-                }, new List<string>() }
-    });
+//    setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
+//    {
+//        {
+//            new OpenApiSecurityScheme
+//            {
+//                Reference = new OpenApiReference
+//                {
+//                    Type = ReferenceType.SecurityScheme,
+//                    Id = "RinconDelRemoApiBearerAuth" } //Tiene que coincidir con el id seteado arriba en la definici�n
+//                }, new List<string>() }
+//    });
 
-});
+//}
+);
 #endregion
 
 #region Database Configuration
@@ -223,16 +224,15 @@ var app = builder.Build();
 //    });
 //});
 
-app.UseSwaggerUI(c =>
-{
-    c.OAuthUsePkce();
-});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.OAuthUsePkce();
+    });
 }
 
 app.UseCors("AllowVercel");
