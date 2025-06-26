@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Application.Interfaces;
+using Application.Models.Request;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace Web.Controllers
@@ -7,31 +10,120 @@ namespace Web.Controllers
     [ApiController]
     public class KayakController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IKayakService _kayakService;
+        public KayakController(IKayakService kayakService)
         {
-            return new string[] { "value1", "value2" };
+            _kayakService = kayakService;
         }
 
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("[action]")]
+        public IActionResult GetAll()
         {
-            return "value";
+            return Ok(_kayakService.GetAll());
         }
 
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpGet("Id/{id}")]
+        public IActionResult GetById(int id)
         {
+            try
+            {
+                var kayak = _kayakService.GetById(id);
+                return Ok(kayak);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPost("[action]")]
+        public IActionResult CreateKayak([FromBody] KayakCreateRequest request)
         {
+            var obj = _kayakService.Create(request);
+            return CreatedAtAction(nameof(GetById), new { id = obj.Id }, obj);
         }
 
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPut("[action]/{id}")]
+        public IActionResult Update([FromRoute] int id, [FromBody] KayakUpdateRequest request)
         {
+            try
+            {
+                _kayakService.Update(id, request);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("[action]/{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            try
+            {
+                _kayakService.Delete(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("[action]")]
+        public IActionResult GetAvailableKayak()
+        {
+            try
+            {
+                return Ok(_kayakService.GetAvailableKayak());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpGet("[action]/{ownerId}")]
+        public IActionResult GetKayakByOwner(int ownerId)
+        {
+            try
+            {
+                return Ok(_kayakService.GetKayakByOwner(ownerId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("enable/{kayakId}")]
+        public IActionResult EnableKayak(int kayakId)
+        {
+            try
+            {
+                _kayakService.EnableKayak(kayakId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpPut("disable/{kayakId}")]
+        public IActionResult DisableKayak(int kayakId)
+        {
+            try
+            {
+                _kayakService.DisableKayak(kayakId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

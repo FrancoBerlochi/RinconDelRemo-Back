@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Interfaces;
 
-namespace Infrastructure.Data
+namespace Domain.Interfaces
 {
-    public class AttendantRepository : IAttendantRepository
+    public interface IUserRepository
     {
-
     }
 }

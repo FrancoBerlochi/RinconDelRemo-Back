@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Interfaces;
 
-namespace Infrastructure.Data
+namespace Domain.Enums
 {
-    public class OwnerRepository : IOwnerRepository
+    public enum Material
     {
+        Polietileno,
+        FibraDeVidrio,
+        Kevlar,
+        Carbono
     }
 }

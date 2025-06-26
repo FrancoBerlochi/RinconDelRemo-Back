@@ -8,5 +8,6 @@ namespace Domain.Entities
 {
     public class Tenant : User
     {
+        public List<KayakReservation> KayakReservations { get; set; }
     }
 }

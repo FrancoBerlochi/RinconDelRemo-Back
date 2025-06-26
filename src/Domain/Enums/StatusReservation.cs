@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Exceptions
+namespace Domain.Enums
 {
-    internal class Class1
-    {
+    public enum StatusReservation
+    {  
+        Active,
+        Finished,
+        Canceled
     }
 }
