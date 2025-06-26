@@ -121,7 +121,8 @@ builder.Services.AddCors(options =>
     {
         builder.WithOrigins("https://rincondelremo.vercel.app", "http://localhost:5173")
                .AllowAnyHeader()
-               .AllowAnyMethod();
+               .AllowAnyMethod()
+               .AllowCredentials();
     });
 });
 #endregion
