@@ -31,7 +31,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 #region Swagger Authentication Config
-builder.Services.AddSwaggerGen(setupAction =>
+builder.Services.AddSwaggerGen();
+/*(setupAction =>
 {
     setupAction.AddSecurityDefinition("RinconDelRemoApiBearerAuth", new OpenApiSecurityScheme() //Esto va a permitir usar swagger con el token.
     {
@@ -52,7 +53,7 @@ builder.Services.AddSwaggerGen(setupAction =>
                 }, new List<string>() }
     });
 
-});
+});*/
 #endregion
 
 #region Database Configuration
