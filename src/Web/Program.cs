@@ -118,7 +118,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowVercel", builder =>
     {
-        builder.WithOrigins("https://rincondelremo.vercel.app")
+        builder.WithOrigins("https://rincondelremo.vercel.app", "http://localhost:5173")
                .AllowAnyHeader()
                .AllowAnyMethod();
     });
