@@ -30,13 +30,14 @@ namespace Web.Controllers
         [HttpGet("chaussss")]
         public IActionResult Getb()
         {
-            return Ok("b");
+            var usuario = User;
+            return Ok(usuario);
         }
 
         [Authorize (Roles = "admin")]
         [HttpGet("hola")]
         public IActionResult Getc() 
-        {                                       // PRUEBA DE TOKEN!!!!!
+        {                   
            return Ok("User");
         }
 

@@ -113,6 +113,18 @@ builder.Services.AddSwaggerGen(c =>
 
 #endregion(
 
+#region CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowVercel", builder =>
+    {
+        builder.WithOrigins("https://rincondelremo.vercel.app")
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
+#endregion
+
 #region Authentication
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -221,6 +233,8 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowVercel");
 
 app.UseHttpsRedirection();
 
