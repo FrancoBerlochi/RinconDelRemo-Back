@@ -128,5 +128,19 @@ namespace Web.Controllers
             }
             
         }
+
+        [HttpGet]
+        public ActionResult<List<KayakReservationDto>> GetReservations([FromQuery] DateTime? date, [FromQuery] int? tenantId)
+        {
+            try
+            {
+                var reservations = _kayakReservationService.GetReservations(date, tenantId);
+                return Ok(reservations);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
