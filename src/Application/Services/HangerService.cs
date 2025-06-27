@@ -84,7 +84,7 @@ namespace Application.Services
             return HangerDto.Create(hanger);
         }
 
-        public IEnumerable<HangerDto> GetHangersByOwner(int ownerId) //muestra perchas de cada dueno
+        public IEnumerable<HangerDto> GetHangersByOwner(string ownerId) //muestra perchas de cada dueno
         {
             var hangers = _hangerRepository.GetByOwnerId(ownerId) ?? throw new NotFoundException("Dueño no encontrado.");
             return hangers.Select(HangerDto.Create);

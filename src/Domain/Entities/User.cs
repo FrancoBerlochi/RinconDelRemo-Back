@@ -11,7 +11,8 @@ namespace Domain.Entities
 {
     public abstract class User
     {
-        public int Id { get; set; }
+        [Required]
+        public string Id { get; set; } = string.Empty;
 
         [Column(TypeName = "nvarchar(100)")]
         [Required]

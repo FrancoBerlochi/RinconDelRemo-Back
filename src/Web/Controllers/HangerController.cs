@@ -2,6 +2,7 @@
 using Application.Models;
 using Application.Models.Request;
 using Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace Web.Controllers
             _hangerService = hangerService;
         }
 
+        [Authorize (Policy = "DuenioKayak")]
         [HttpPost("[action]")] // solo dueno
         public IActionResult Create([FromBody] HangerCreateRequest request, [FromQuery] int kayakId)
         {
@@ -31,6 +33,7 @@ namespace Web.Controllers
             }
         }
 
+        [Authorize(Roles = "admin,encargado")]
         [HttpDelete("{id}")] // solo encargado
         public IActionResult Delete(int id)
         {
@@ -58,6 +61,7 @@ namespace Web.Controllers
             return Ok(result);
         }
 
+        [Authorize (Policy = "ClienteODuenio")]
         [HttpGet("id/{id}")]
         public IActionResult GetById(int id)
         {
@@ -72,8 +76,9 @@ namespace Web.Controllers
             }
         }
 
+        [Authorize(Policy = "ClienteODuenio")]
         [HttpGet("byowner/{ownerId}")]
-        public ActionResult<IEnumerable<HangerDto>> GetHangersByOwner(int ownerId)
+        public ActionResult<IEnumerable<HangerDto>> GetHangersByOwner(string ownerId)
         {
             var hangers = _hangerService.GetHangersByOwner(ownerId);
             return Ok(hangers);

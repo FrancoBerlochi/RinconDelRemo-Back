@@ -12,10 +12,10 @@ namespace Application.Interfaces
     public interface IOwnerService
     {
         List<OwnerDto> GetAll();
-        OwnerDto GetById(int id);
+        OwnerDto GetById(string id);
         OwnerDto? GetByNameLastName(string name, string lastname);
         Owner CreateOwner(OwnerCreateRequest ownerCreateRequest);
-        void Update(int id, OwnerUpdateRequest ownerUpdateRequest);
-        void Delete(int id);
+        void Update(string id, OwnerUpdateRequest ownerUpdateRequest);
+        void Delete(string id);
     }
 }

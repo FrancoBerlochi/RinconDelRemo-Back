@@ -17,6 +17,7 @@ using Application.UsesCases;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using System.IdentityModel.Tokens.Jwt;
 
 
 
@@ -129,8 +130,14 @@ builder.Services.AddCors(options =>
 
 #region Authentication
 
+JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+
+builder.Services.Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
+{
+    options.TokenValidationParameters.RoleClaimType = "roles"; // 👈 Esto es CLAVE para que funcione
+});
 
 builder.Services.AddAuthorization(options =>
 {
@@ -142,6 +149,8 @@ builder.Services.AddAuthorization(options =>
 
     options.AddPolicy("ClienteODuenio", policy =>
         policy.RequireClaim("Tipo de usuario", "Cliente", "DuenioKayak"));
+
+
 });
 //.AddJwtBearer("LocalJwt", options =>
 //{

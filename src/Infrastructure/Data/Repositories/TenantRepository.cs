@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class TenantRepository : BaseRepository<Tenant>, ITenantRepository
+    public class TenantRepository : BaseRepository<Tenant, string>, ITenantRepository
     {
         private readonly ApplicationContext _context;
         public TenantRepository(ApplicationContext context) : base(context)

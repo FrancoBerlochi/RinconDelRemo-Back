@@ -14,7 +14,7 @@ namespace Application.Interfaces
         void Delete(int id);
         List<HangerDto> GetOccupiedHangers();
         HangerDto? GetById(int id);
-        IEnumerable<HangerDto> GetHangersByOwner(int ownerId);
+        IEnumerable<HangerDto> GetHangersByOwner(string ownerId);
         List<string> GetFreeHangers();
         List<HangerStatusDto> GetAllHangerStatus();
 

@@ -12,7 +12,7 @@ namespace Application.Interfaces
         List<KayakDto> GetAll();
         KayakDto GetById(int id);
         List<KayakDto> GetAvailableKayak();
-        List<KayakDto> GetKayakByOwner(int ownerId);
+        List<KayakDto> GetKayakByOwner(string ownerId);
         void EnableKayak(int kayakId);//, int ownerId);
         void DisableKayak(int kayakId);//, int ownerId);
     }

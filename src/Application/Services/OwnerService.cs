@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Interfaces;
@@ -27,7 +28,7 @@ namespace Application.Services
             return owners.Select(OwnerDto.Create).ToList();
         }
 
-        public OwnerDto? GetById(int id)
+        public OwnerDto? GetById(string id)
         {
             var owner = _ownerRepository.GetById(id) ?? throw new NotFoundException("Dueño no encontrado.");
             return OwnerDto.Create(owner);
@@ -47,24 +48,17 @@ namespace Application.Services
                 throw new Exception("Ya existe un Dueño con el mismo correo electrónico.");
             }
 
-            var existingOwnerWithSamePhone = _ownerRepository.GetByOwnerPhone(request.Phone);
-            if (existingOwnerWithSamePhone != null)
-            {
-                throw new Exception("Ya existe un Dueño con el mismo teléfono.");
-            }
-
             var owner = new Owner();
+            owner.Id = request.OwnerId;
             owner.Name = request.Name;
             owner.LastName = request.LastName;
             owner.Email = request.Email;
-            owner.Password = request.Password;
-            owner.Phone = request.Phone;
 
             _ownerRepository.Create(owner);
             return owner;
         }
 
-        public void Update(int id, OwnerUpdateRequest request)
+        public void Update(string id, OwnerUpdateRequest request)
         {
             var owner = _ownerRepository.GetById(id) ?? throw new NotFoundException("Dueño no encontrado.");
 
@@ -76,7 +70,7 @@ namespace Application.Services
             _ownerRepository.Update(owner);
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             var owner = _ownerRepository.GetById(id) ?? throw new NotFoundException("Dueño no encontrado.");
             _ownerRepository.Delete(owner);

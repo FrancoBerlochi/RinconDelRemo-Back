@@ -8,7 +8,7 @@ using Domain.Interfaces;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class AttendantRepository : BaseRepository<Attendant>, IAttendantRepository
+    public class AttendantRepository : BaseRepository<Attendant, string>, IAttendantRepository
     {
         private readonly ApplicationContext _context;
         public AttendantRepository(ApplicationContext context) : base(context)

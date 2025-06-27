@@ -19,7 +19,7 @@ namespace Application.Interfaces
         public void Update(int id, KayakReservationUpdateRequest request);
         public void Delete(int id);
         public void CanceledReservation(int id);
-        public List<KayakReservationDto> GetReservations(DateTime? date, int? tenantId);
+        public List<KayakReservationDto> GetReservations(DateTime? date, string? tenantId);
         public List<KayakReservationHistoryDto> GetCheckInCheckOutHistory();
         List<KayakReservationDto> GetActiveReservations();
         List<KayakReservationDto> GetCancelledReservations();

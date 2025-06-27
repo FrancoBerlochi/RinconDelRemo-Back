@@ -18,15 +18,17 @@ namespace Web.Controllers
             _tenantService = tenantService;
         }
 
-        
+        [Authorize (Roles = "admin,encargado")]
         [HttpGet("[action]")]
         public IActionResult GetAll()
         {
-            return Ok(_tenantService.GetAll());
+            var tenant = _tenantService.GetAll();
+            return Ok(tenant);
         }
 
+        [Authorize (Policy = "Cliente")]
         [HttpGet("Id/{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(string id)
         {
             try
             {
@@ -42,12 +44,20 @@ namespace Web.Controllers
         [HttpPost("[action]")]
         public IActionResult CreateTenant([FromBody] TenantCreateRequest request)
         {
-            var result = _tenantService.Create(request);
-            return Ok(result);
+            try
+            {
+                _tenantService.Create(request);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
+        [Authorize(Policy = "Cliente")]
         [HttpPut("[action]/{id}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] TenantUpdateRequest request)
+        public IActionResult Update([FromRoute] string id, [FromBody] TenantUpdateRequest request)
         {
             try
             {
@@ -59,8 +69,10 @@ namespace Web.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [Authorize(Policy = "Cliente")]
         [HttpDelete("[action]/{id}")]
-        public IActionResult Delete([FromRoute] int id)
+        public IActionResult Delete([FromRoute] string id)
         {
             try
             {

@@ -19,7 +19,7 @@ namespace Web.Controllers
             _ownerService = ownerService;
         }
 
-        [Authorize (Policy = "Cliente")]
+        [Authorize (Policy = "encargado")]
         [HttpGet ("chau")]
         public IActionResult Geta()
         {
@@ -30,8 +30,7 @@ namespace Web.Controllers
         [HttpGet("chaussss")]
         public IActionResult Getb()
         {
-            var usuario = User;
-            return Ok(usuario);
+            return Ok("b");
         }
 
         [Authorize (Roles = "admin")]
@@ -41,14 +40,16 @@ namespace Web.Controllers
            return Ok("User");
         }
 
+        [Authorize(Roles = "admin,encargado")]
         [HttpGet("[action]")]
         public IActionResult GetAll()
         {
             return Ok(_ownerService.GetAll());
         }
 
+        [Authorize(Policy = "ClienteODuenio")]
         [HttpGet("id/{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(string id)
         {
             try
             {
@@ -61,6 +62,7 @@ namespace Web.Controllers
             }
         }
 
+        [Authorize(Policy = "ClienteODuenio")]
         [HttpGet("NameLastname/{name}/{lastname}")]
         public IActionResult GetByNameLastname(string name, string lastname)
         {
@@ -74,6 +76,7 @@ namespace Web.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
         [HttpPost("[action]")]
         public IActionResult CreateOwner([FromBody] OwnerCreateRequest request)
@@ -89,8 +92,10 @@ namespace Web.Controllers
             }
         }
 
+
+        [Authorize(Policy = "ClienteODuenio")]
         [HttpPut("[action]/{id}")]
-        public IActionResult Update([FromRoute] int id, [FromBody] OwnerUpdateRequest request)
+        public IActionResult Update([FromRoute] string id, [FromBody] OwnerUpdateRequest request)
         {
             try
             {
@@ -103,8 +108,10 @@ namespace Web.Controllers
             }
         }
 
+
+        [Authorize(Policy = "ClienteODuenio")]
         [HttpDelete("[action]/{id}")]
-        public IActionResult Delete([FromRoute] int id)
+        public IActionResult Delete([FromRoute] string id)
         {
             try
             {

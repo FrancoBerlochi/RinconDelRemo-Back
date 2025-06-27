@@ -1,9 +1,9 @@
 ﻿
 namespace Domain.Interfaces
 {
-    public interface IBaseRepository<T> where T : class
+    public interface IBaseRepository<T, TId> where T : class
     {
-        T? GetById(int id);
+        T? GetById(TId id);
         List<T> GetAll();
         T Create(T entity);
         void Update(T entity);

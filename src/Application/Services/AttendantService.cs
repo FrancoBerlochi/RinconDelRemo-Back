@@ -37,7 +37,7 @@ namespace Application.Services
             return attendant;
         }
 
-        public void Update(int id, AttendantUpdateRequest attendantUpdateRequest)
+        public void Update(string id, AttendantUpdateRequest attendantUpdateRequest)
         {
             var attendant = _attendantRepository.GetById(id);
             if (attendant == null)
@@ -63,7 +63,7 @@ namespace Application.Services
             }).ToList();
         }
 
-        public AttendantDto GetById(int id)
+        public AttendantDto GetById(string id)
         {
             var attendant = _attendantRepository.GetById(id);
             if (attendant == null)
@@ -80,7 +80,7 @@ namespace Application.Services
             };
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             var attendant = _attendantRepository.GetById(id);
             if (attendant == null)
