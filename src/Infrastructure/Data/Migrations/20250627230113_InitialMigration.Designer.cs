@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250619182643_AumentoCantidadCaracteresEmail")]
-    partial class AumentoCantidadCaracteresEmail
+    [Migration("20250627230113_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,32 @@ namespace Infrastructure.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("Domain.Entities.Hanger", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Column")
+                        .IsRequired()
+                        .HasColumnType("varchar(1)");
+
+                    b.Property<bool>("IsOccupied")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int?>("KayakId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Row")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KayakId");
+
+                    b.ToTable("Hangers");
+                });
 
             modelBuilder.Entity("Domain.Entities.Kayak", b =>
                 {
@@ -53,8 +79,8 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("int");
+                    b.Property<string>("OwnerId")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("PublicationDate")
                         .HasColumnType("datetime(6)");
@@ -96,8 +122,8 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("StatusReservation")
                         .HasColumnType("int");
 
-                    b.Property<int>("TenantId")
-                        .HasColumnType("int");
+                    b.Property<string>("TenantId")
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -110,9 +136,8 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
@@ -130,14 +155,6 @@ namespace Infrastructure.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(11)");
 
                     b.HasKey("Id");
 
@@ -176,13 +193,20 @@ namespace Infrastructure.Data.Migrations
                     b.HasDiscriminator().HasValue("Tenant");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Hanger", b =>
+                {
+                    b.HasOne("Domain.Entities.Kayak", "Kayak")
+                        .WithMany()
+                        .HasForeignKey("KayakId");
+
+                    b.Navigation("Kayak");
+                });
+
             modelBuilder.Entity("Domain.Entities.Kayak", b =>
                 {
                     b.HasOne("Domain.Entities.Owner", "Owner")
                         .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OwnerId");
 
                     b.Navigation("Owner");
                 });
@@ -197,9 +221,7 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasOne("Domain.Entities.Tenant", "Tenant")
                         .WithMany("KayakReservations")
-                        .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TenantId");
 
                     b.Navigation("Kayak");
 

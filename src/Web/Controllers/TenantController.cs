@@ -18,7 +18,6 @@ namespace Web.Controllers
             _tenantService = tenantService;
         }
 
-        [Authorize (Roles = "admin,encargado")]
         [HttpGet("[action]")]
         public IActionResult GetAll()
         {

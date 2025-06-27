@@ -40,7 +40,6 @@ namespace Web.Controllers
            return Ok("User");
         }
 
-        [Authorize(Roles = "admin,encargado")]
         [HttpGet("[action]")]
         public IActionResult GetAll()
         {
