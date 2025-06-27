@@ -26,9 +26,5 @@ namespace Infrastructure.Data.Repositories
             return _context.Owners.SingleOrDefault(o => o.Email == email);
         }
 
-        public Owner GetByOwnerPhone(string phone)
-        {
-            return _context.Owners.SingleOrDefault(o => o.Phone == phone);
-        }
     }
 }

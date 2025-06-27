@@ -63,8 +63,6 @@ namespace Application.Services
             var owner = _ownerRepository.GetById(id) ?? throw new NotFoundException("Dueño no encontrado.");
 
             owner.Email = request.Email ?? owner.Email;
-            owner.Password = request.Password ?? owner.Password;
-            owner.Phone = request.Phone ?? owner.Phone;
 
 
             _ownerRepository.Update(owner);

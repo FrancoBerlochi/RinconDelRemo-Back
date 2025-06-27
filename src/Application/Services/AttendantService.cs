@@ -30,8 +30,6 @@ namespace Application.Services
                 Name = attendantCreateRequest.Name,
                 LastName = attendantCreateRequest.LastName,
                 Email = attendantCreateRequest.Email,
-                Password = attendantCreateRequest.Password,
-                Phone = attendantCreateRequest.Phone
             };
             _attendantRepository.Create(attendant);
             return attendant;
@@ -45,8 +43,6 @@ namespace Application.Services
                 throw new Exception($"Attendant with id {id} not found"); //Cambiar por un custom exception
             }
             attendant.Email = attendantUpdateRequest.Email;
-            attendant.Password = attendantUpdateRequest.Password;
-            attendant.Phone = attendantUpdateRequest.Phone;
             _attendantRepository.Update(attendant);
         }
 
@@ -59,7 +55,6 @@ namespace Application.Services
                 Name = a.Name,
                 LastName = a.LastName,
                 Email = a.Email,
-                Phone = a.Phone
             }).ToList();
         }
 
@@ -76,7 +71,6 @@ namespace Application.Services
                 Name = attendant.Name,
                 LastName = attendant.LastName,
                 Email = attendant.Email,
-                Phone = attendant.Phone
             };
         }
 

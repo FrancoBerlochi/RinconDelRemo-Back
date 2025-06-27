@@ -28,14 +28,5 @@ namespace Domain.Entities
         [EmailAddress]
         public string Email { get; set; }
 
-        [Column(TypeName = "nvarchar(100)")]
-        [Required]
-        [PasswordPropertyText]
-        public string Password { get; set; }
-
-        [Column(TypeName = "nvarchar(11)")]
-        [Required]
-        public string Phone { get; set; }
-
     }
 }

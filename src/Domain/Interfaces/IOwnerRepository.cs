@@ -11,6 +11,5 @@ namespace Domain.Interfaces
     {
         Owner? GetByNameLastname(string name, string lastname);
         Owner GetByOwnerEmail(string email);
-        Owner GetByOwnerPhone(string phone);
     }
 }

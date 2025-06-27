@@ -15,10 +15,6 @@ namespace Application.Models.Request
         [EmailAddress]
         public string Email { get; set; } = string.Empty;
 
-        [Column(TypeName = "nvarchar(64)")]
-        public string Password { get; set; } = string.Empty;
 
-        [Column(TypeName = "nvarchar(11)")]
-        public string Phone { get; set; } = string.Empty;
     }
 }

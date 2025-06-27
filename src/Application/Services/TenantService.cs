@@ -42,8 +42,6 @@ namespace Application.Services
                     throw new Exception($"Tenant with id {id} not found"); //Cambiar por un custom exception
                 }
                 tenant.Email = tenantUpdateRequest.Email;
-                tenant.Password = tenantUpdateRequest.Password;
-                tenant.Phone = tenantUpdateRequest.Phone;
                 _tenantRepository.Update(tenant);
             //}
             //else if (infoTipoUsuario[0].Value == "Cliente")
@@ -78,7 +76,6 @@ namespace Application.Services
                 Name = t.Name,
                 LastName = t.LastName,
                 Email = t.Email,
-                Phone = t.Phone
             }).ToList();
         }
 
@@ -99,7 +96,7 @@ namespace Application.Services
                     Name = tenant.Name,
                     LastName = tenant.LastName,
                     Email = tenant.Email,
-                    Phone = tenant.Phone
+  
                 };
            // }
         //    else if (infoTipoUsuario[0].Value != "Cliente")
