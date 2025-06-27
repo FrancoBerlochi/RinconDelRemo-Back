@@ -136,7 +136,7 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<KayakReservationDto>> GetReservations([FromQuery] DateTime? date, [FromQuery] int? tenantId)
+        public ActionResult<List<KayakReservationDto>> GetReservations([FromQuery] DateTime? date, [FromQuery] string? tenantId)
         {
             try
             {
