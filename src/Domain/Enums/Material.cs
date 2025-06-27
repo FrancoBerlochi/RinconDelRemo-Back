@@ -11,6 +11,7 @@ namespace Domain.Enums
         Polietileno,
         FibraDeVidrio,
         Kevlar,
-        Carbono
+        Carbono,
+        Otros
     }
 }

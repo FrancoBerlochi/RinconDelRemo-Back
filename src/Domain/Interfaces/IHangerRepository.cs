@@ -7,11 +7,11 @@ using Domain.Entities;
 
 namespace Domain.Interfaces
 {
-    public interface IHangerRepository : IBaseRepository<Hanger>
+    public interface IHangerRepository : IBaseRepository<Hanger, int>
     {
         Hanger? FindByRowAndColumn(int row, char column);
         IEnumerable<Hanger> GetOccupied();
-        IEnumerable<Hanger> GetByOwnerId(int ownerId);
+        IEnumerable<Hanger> GetByOwnerId(string ownerId);
         bool IsKayakAssigned(int kayakId);
     }
 }

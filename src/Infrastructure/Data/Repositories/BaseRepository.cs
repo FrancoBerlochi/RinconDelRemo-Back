@@ -3,7 +3,7 @@ using Domain.Interfaces;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : class
+    public class BaseRepository<T, TId> : IBaseRepository<T, TId> where T : class
     {
         private readonly ApplicationContext _context;
 
@@ -17,7 +17,7 @@ namespace Infrastructure.Data.Repositories
             return _context.Set<T>().ToList();
         }
 
-        public T GetById(int id)
+        public T GetById(TId id)
         {
             return _context.Set<T>().Find(id);
         }

@@ -11,6 +11,6 @@ namespace Application.Models.Request
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
         public int KayakId { get; set; }
-        public int TenantId { get; set; }
+        public string TenantId { get; set; }
     }
 }

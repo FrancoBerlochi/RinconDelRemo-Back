@@ -2,6 +2,7 @@
 using Application.Models;
 using Application.Models.Request;
 using Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
@@ -15,12 +16,15 @@ namespace Web.Controllers
         {
             _kayakReservationService = kayakReservationService;
         }
+
+        
         [HttpGet("[action]")]
         public IActionResult GetAll()
         {
             return Ok(_kayakReservationService.GetAll());
         }
 
+        
         [HttpGet("Id/{id}")]
         public IActionResult GetById(int id)
         {
@@ -34,6 +38,7 @@ namespace Web.Controllers
                 return NotFound(ex.Message);
             }
         }
+
         [HttpPost("[action]")]
         public IActionResult CreateReservationKayak([FromBody] KayakReservationCreateRequest request)
         {
@@ -42,6 +47,7 @@ namespace Web.Controllers
             return Ok(obj);
         }
 
+       
         [HttpPut("[action]/{id}")]
         public IActionResult Update([FromRoute] int id, [FromBody] KayakReservationUpdateRequest request)
         {

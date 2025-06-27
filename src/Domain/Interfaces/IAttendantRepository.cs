@@ -8,7 +8,7 @@ using Domain.Entities;
 
 namespace Domain.Interfaces
 {
-    public interface IAttendantRepository : IBaseRepository<Attendant>
+    public interface IAttendantRepository : IBaseRepository<Attendant, string>
     {
     }
 }

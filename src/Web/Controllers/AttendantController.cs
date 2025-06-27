@@ -2,6 +2,7 @@
 using Application.Models;
 using Application.Models.Request;
 using Domain.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,14 +20,16 @@ namespace Web.Controllers
             _kayakReservationService = kayakReservationService;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("[action]")]
         public IActionResult GetAll()
         {
             return Ok(_attendantService.GetAll());
         }
 
+        [Authorize(Roles = "admin,encargado")]
         [HttpGet("Id/{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(string id)
         {
             try
             {
@@ -39,6 +42,8 @@ namespace Web.Controllers
             }
         }
 
+        //se le pide al admin que agregue usuarios (desarrolladores)
+        [Authorize(Roles = "admin")]
         [HttpPost("[action]")]
         public ActionResult<AttendantDto> CreateAttendant([FromBody] AttendantCreateRequest request)
         {
@@ -53,8 +58,9 @@ namespace Web.Controllers
             }
         }
 
+        [Authorize(Roles = "admin,encargado")]
         [HttpPut("[action]/{id}")]
-        public IActionResult UpdateAttendant(int id, [FromBody] AttendantUpdateRequest request)
+        public IActionResult UpdateAttendant(string id, [FromBody] AttendantUpdateRequest request)
         {
             try
             {
@@ -67,8 +73,9 @@ namespace Web.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete("[action]/{id}")]
-        public IActionResult DeleteAttendant(int id)
+        public IActionResult DeleteAttendant(string id)
         {
             try
             {
@@ -81,6 +88,7 @@ namespace Web.Controllers
             }
         }
 
+        [Authorize(Roles = "admin,encargado")]
         [HttpPost("checkin/{id}")]
         public IActionResult CheckIn(int id)
         {
@@ -95,6 +103,7 @@ namespace Web.Controllers
             }
         }
 
+        [Authorize(Roles = "admin,encargado")]
         [HttpPost("checkout/{id}")]
         public IActionResult CheckOut(int id)
         {
@@ -109,13 +118,15 @@ namespace Web.Controllers
             }
         }
 
+        [Authorize(Roles = "admin,encargado")]
         [HttpGet("reservations")]
-        public IActionResult GetReservations([FromQuery] DateTime? date, [FromQuery] int? tentantId)
+        public IActionResult GetReservations([FromQuery] DateTime? date, [FromQuery] string? tentantId)
         {
             var respuesta = _kayakReservationService.GetReservations(date, tentantId);
             return Ok(respuesta);
         }
 
+        [Authorize(Roles = "admin,encargado")]
         [HttpGet("checkins-checkouts")]
         public IActionResult GetHistory()
         {

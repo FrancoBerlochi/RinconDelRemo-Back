@@ -87,7 +87,7 @@ namespace Application.Services
             return kayaks.Select(KayakDto.Create).ToList();
         }
 
-        public List<KayakDto> GetKayakByOwner(int ownerId)
+        public List<KayakDto> GetKayakByOwner(string ownerId)
         {
             var kayaks = _kayakRepository.GetByOwnerId(ownerId) ?? throw new NotFoundException("Dueño no encontrado.");
 

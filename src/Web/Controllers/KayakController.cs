@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using Application.Interfaces;
 using Application.Models.Request;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -22,6 +23,7 @@ namespace Web.Controllers
             return Ok(_kayakService.GetAll());
         }
 
+        [Authorize(Roles = "ClienteODuenio")]
         [HttpGet("Id/{id}")]
         public IActionResult GetById(int id)
         {
@@ -36,6 +38,7 @@ namespace Web.Controllers
             }
         }
 
+        [Authorize(Policy = "DuenioKayak")]
         [HttpPost("[action]")]
         public IActionResult CreateKayak([FromBody] KayakCreateRequest request)
         {
@@ -43,6 +46,7 @@ namespace Web.Controllers
             return CreatedAtAction(nameof(GetById), new { id = obj.Id }, obj);
         }
 
+        [Authorize(Policy = "DuenioKayak")]
         [HttpPut("[action]/{id}")]
         public IActionResult Update([FromRoute] int id, [FromBody] KayakUpdateRequest request)
         {
@@ -57,6 +61,7 @@ namespace Web.Controllers
             }
         }
 
+        [Authorize(Policy = "DuenioKayak")]
         [HttpDelete("[action]/{id}")]
         public IActionResult Delete([FromRoute] int id)
         {
@@ -70,6 +75,8 @@ namespace Web.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        
         [HttpGet("[action]")]
         public IActionResult GetAvailableKayak()
         {
@@ -84,8 +91,9 @@ namespace Web.Controllers
 
         }
 
+        [Authorize(Roles = "ClienteODuenio")]
         [HttpGet("[action]/{ownerId}")]
-        public IActionResult GetKayakByOwner(int ownerId)
+        public IActionResult GetKayakByOwner(string ownerId)
         {
             try
             {
@@ -97,6 +105,7 @@ namespace Web.Controllers
             }
         }
 
+        [Authorize(Roles = "ClienteODuenio")]
         [HttpPut("enable/{kayakId}")]
         public IActionResult EnableKayak(int kayakId)
         {
@@ -112,6 +121,7 @@ namespace Web.Controllers
 
         }
 
+        [Authorize(Roles = "ClienteODuenio")]
         [HttpPut("disable/{kayakId}")]
         public IActionResult DisableKayak(int kayakId)
         {

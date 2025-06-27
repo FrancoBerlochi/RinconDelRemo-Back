@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class KayakReservationRepository : BaseRepository<KayakReservation>, IKayakReservationRepository
+    public class KayakReservationRepository : BaseRepository<KayakReservation, int>, IKayakReservationRepository
     {
         private readonly ApplicationContext _context;
         public KayakReservationRepository(ApplicationContext context) : base(context)
@@ -21,7 +21,7 @@ namespace Infrastructure.Data.Repositories
         }
 
 
-        public IEnumerable<KayakReservation> GetFiltered(DateTime? date, int? tenantId)
+        public IEnumerable<KayakReservation> GetFiltered(DateTime? date, string? tenantId)
         {
             var query = _context.KayaksReservations
                 .Include(r => r.Kayak)
@@ -33,9 +33,9 @@ namespace Infrastructure.Data.Repositories
                 query = query.Where(r => r.FechaInicio.Date == date.Value);
             }
 
-            if (tenantId.HasValue)
+            if (tenantId != "")
             {
-                query = query.Where(r => r.TenantId == tenantId.Value);
+                query = query.Where(r => r.TenantId == tenantId);
             }
 
             return query.ToList();

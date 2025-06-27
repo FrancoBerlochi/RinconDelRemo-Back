@@ -14,7 +14,7 @@ namespace Application.Models
         public int Id { get; set; }
         public int KayakId { get; set; }
         public Kayak Kayak { get; set; }
-        public int TenantId { get; set; }
+        public string TenantId { get; set; }
         public Tenant Tenant { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }

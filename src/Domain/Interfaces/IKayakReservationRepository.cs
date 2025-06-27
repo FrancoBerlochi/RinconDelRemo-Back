@@ -8,9 +8,9 @@ using Domain.Enums;
 
 namespace Domain.Interfaces
 {
-    public interface IKayakReservationRepository: IBaseRepository<KayakReservation>
+    public interface IKayakReservationRepository: IBaseRepository<KayakReservation, int>
     {
-        IEnumerable<KayakReservation> GetFiltered(DateTime? date, int? tenantId);
+        IEnumerable<KayakReservation> GetFiltered(DateTime? date, string? tenantId);
         public List<KayakReservation> GetAllWithIncludes();
         IEnumerable<KayakReservation> GetByStatus(StatusReservation status);
     }

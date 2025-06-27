@@ -11,10 +11,10 @@ namespace Application.Interfaces
 {
     public interface IAttendantService
     {
-        void Delete(int id);
+        void Delete(string id);
         List<AttendantDto> GetAll();
-        AttendantDto GetById(int id);
-        void Update(int id, AttendantUpdateRequest attendantUpdateRequest);
+        AttendantDto GetById(string id);
+        void Update(string id, AttendantUpdateRequest attendantUpdateRequest);
         Attendant Create(AttendantCreateRequest attendantCreateRequest);
 
         void CheckIn(int id);

@@ -8,7 +8,7 @@ using Domain.Interfaces;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class OwnerRepository : BaseRepository<Owner>, IOwnerRepository
+    public class OwnerRepository : BaseRepository<Owner, string>, IOwnerRepository
     {
         private readonly ApplicationContext _context;
         public OwnerRepository(ApplicationContext context) : base(context)

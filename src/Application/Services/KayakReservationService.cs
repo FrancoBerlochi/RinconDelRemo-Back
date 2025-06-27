@@ -64,7 +64,7 @@ namespace Application.Services
         }
 
 
-        public List<KayakReservationDto> GetReservations(DateTime? date, int? tenantId)
+        public List<KayakReservationDto> GetReservations(DateTime? date, string? tenantId)
         {
             var reservas = _kayakReservationRepository.GetFiltered(date, tenantId);
             return reservas.Select(KayakReservationDto.Create).ToList();

@@ -13,7 +13,7 @@ namespace Application.Models
         public string Material { get; set; }
         public DateTime PublicationDate { get; set; }
         public bool IsAvailable { get; set; } = false;
-        public int OwnerId { get; set; }
+        public string OwnerId { get; set; }
 
         public static KayakDto Create(Kayak kayak)
         {

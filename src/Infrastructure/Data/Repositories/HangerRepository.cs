@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class HangerRepository : BaseRepository<Hanger>, IHangerRepository
+    public class HangerRepository : BaseRepository<Hanger, int>, IHangerRepository
     {
         private readonly ApplicationContext _context;
         public HangerRepository(ApplicationContext context) : base(context)
@@ -27,7 +27,7 @@ namespace Infrastructure.Data.Repositories
             return _context.Hangers.Where(h => h.IsOccupied).ToList();
         }
 
-        public IEnumerable<Hanger> GetByOwnerId(int ownerId)
+        public IEnumerable<Hanger> GetByOwnerId(string ownerId)
         {
             return _context.Hangers
                 .Include(h => h.Kayak)

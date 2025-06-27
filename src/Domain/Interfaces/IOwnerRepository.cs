@@ -7,7 +7,7 @@ using Domain.Entities;
 
 namespace Domain.Interfaces
 {
-    public interface IOwnerRepository : IBaseRepository<Owner>
+    public interface IOwnerRepository : IBaseRepository<Owner, string>
     {
         Owner? GetByNameLastname(string name, string lastname);
         Owner GetByOwnerEmail(string email);

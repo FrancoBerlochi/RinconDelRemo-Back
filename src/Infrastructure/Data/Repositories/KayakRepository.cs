@@ -3,7 +3,7 @@ using Domain.Interfaces;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class KayakRepository : BaseRepository<Kayak>, IKayakRepository
+    public class KayakRepository : BaseRepository<Kayak, int>, IKayakRepository
     {
         private readonly ApplicationContext _context;
         public KayakRepository(ApplicationContext context) : base(context)
@@ -15,7 +15,7 @@ namespace Infrastructure.Data.Repositories
             return _context.Kayaks.Where(k => k.IsAvailable == true).ToList();
         }
 
-        public List<Kayak> GetByOwnerId(int ownerId)
+        public List<Kayak> GetByOwnerId(string ownerId)
         {
             return _context.Kayaks.Where(k => k.Owner.Id == ownerId).ToList();
         }
