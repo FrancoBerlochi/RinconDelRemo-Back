@@ -59,7 +59,7 @@ builder.Services.AddSwaggerGen(//setupAction =>
 #region Database Configuration
 var connectionString = builder.Configuration.GetConnectionString("RinconDelRemoDB");
 builder.Services.AddDbContext<ApplicationContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+    options.UseSqlServer(connectionString)
            .LogTo(Console.WriteLine, LogLevel.Debug)
            .EnableSensitiveDataLogging()
 );
