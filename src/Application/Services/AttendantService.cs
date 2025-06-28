@@ -7,6 +7,7 @@ using Application.Interfaces;
 using Application.Models;
 using Application.Models.Request;
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Exceptions;
 using Domain.Interfaces;
 
@@ -100,6 +101,7 @@ namespace Application.Services
 
             reservation.IsCheckedIn = true;
             reservation.CheckInTime = DateTime.UtcNow;
+            reservation.StatusReservation = StatusReservation.Active;
 
             var kayak = _kayakRepository.GetById(reservation.KayakId);
             kayak.IsAvailable = true;
@@ -126,6 +128,7 @@ namespace Application.Services
 
             reservation.IsCheckedOut = true;
             reservation.CheckOutTime = DateTime.UtcNow;
+            reservation.StatusReservation = StatusReservation.Finished;
 
             var kayak = _kayakRepository.GetById(reservation.KayakId);
             kayak.IsAvailable = false;

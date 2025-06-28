@@ -31,20 +31,22 @@ namespace Application.Services
             var reserva = _kayakReservationRepository.GetById(id) ?? throw new NotFoundException("Reserva no encontrada.");
             return KayakReservationDto.Create(reserva);
         }
-        public KayakReservation Create(KayakReservationCreateRequest request)
+        public KayakReservationDto Create(KayakReservationCreateRequest request)
         {
             if (request.FechaFin <= request.FechaInicio)
             {
                 throw new Exception("La fecha de fin debe ser posterior a la fecha de inicio.");
             }
+
             var reservation = new KayakReservation();
             reservation.KayakId = request.KayakId;
             reservation.TenantId = request.TenantId;
             reservation.FechaInicio = request.FechaInicio;
             reservation.FechaFin = request.FechaFin;
-            reservation.StatusReservation = StatusReservation.Active;
             _kayakReservationRepository.Create(reservation);
-            return reservation;
+
+            var newReservation = _kayakReservationRepository.Create(reservation);
+            return KayakReservationDto.Create(reservation);
         }
 
         public void Update(int id, KayakReservationUpdateRequest request)
