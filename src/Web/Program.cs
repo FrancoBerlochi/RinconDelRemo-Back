@@ -197,6 +197,8 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IKayakReservationService, KayakReservationService>();
 builder.Services.AddHttpClient<IWeatherService, OpenWeatherService>();
 builder.Services.AddScoped<IHangerService, HangerService>();
+builder.Services.AddScoped<EntraIdUserApplicationService, EntraIdUserApplicationService>();
+builder.Services.AddScoped<IEntraIdUserService, MicrosoftGraphUserService>();
 #endregion
 
 #region Repositories
