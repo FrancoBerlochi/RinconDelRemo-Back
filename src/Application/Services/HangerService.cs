@@ -22,14 +22,8 @@ namespace Application.Services
             _kayakRepository = kayakRepository;
         }
 
-        public HangerDto Create(HangerCreateRequest request, int kayakId) // validar que el dueno lo cree
+        public HangerDto Create(HangerCreateRequest request) // validar que el dueno lo cree
         {
-            var kayak = _kayakRepository.GetById(kayakId) ?? throw new NotFoundException("Kayak no encontrado.");
-
-            if (_hangerRepository.IsKayakAssigned(kayakId))
-            {
-                throw new InvalidOperationException("Ese kayak ya está asignado a una percha.");
-            }
 
             if (request.Row < 1 || request.Row > 10)
             {
@@ -53,8 +47,7 @@ namespace Application.Services
                 Row = request.Row,
                 Column = upperColumn,
                 IsOccupied = true,
-                KayakId = kayakId,
-                Kayak = kayak
+                OwnerId = request.OwnerId,
             };
 
             _hangerRepository.Create(hanger);
@@ -117,15 +110,21 @@ namespace Application.Services
         public List<HangerStatusDto> GetAllHangerStatus() //muestra el estado de todas las perchas
         {
             var allHangers = _hangerRepository.GetAll(); // todas las perchas existentes en DB
+            var allKayaks = _kayakRepository.GetAll();
+
             var occupied = allHangers
-                .Where(h => h.IsOccupied)
-                .Select(h => new HangerStatusDto
-                {
-                    Location = $"{h.Row}{char.ToUpper(h.Column)}",
-                    IsOccupied = true,
-                    KayakId = h.KayakId
-                })
-                .ToList();
+                   .Where(h => h.IsOccupied)
+                   .Select(h =>
+                   {
+                       var kayak = allKayaks.FirstOrDefault(k => k.HangerId == h.Id);
+                       return new HangerStatusDto
+                       {
+                           Location = $"{h.Row}{char.ToUpper(h.Column)}",
+                           IsOccupied = true,
+                           KayakId = kayak?.Id
+                       };
+                   })
+                   .ToList();
 
             var occupiedLocations = new HashSet<string>(occupied.Select(h => h.Location));
             var fullGrid = new List<HangerStatusDto>();
@@ -149,8 +148,10 @@ namespace Application.Services
             }
 
             fullGrid.AddRange(occupied); // agregar los ocupados
-            return fullGrid.OrderBy(h => int.Parse(h.Location.Substring(0, h.Location.Length - 1)))
-                   .ThenBy(h => h.Location[^1]).ToList();
+            return fullGrid
+                .OrderBy(h => int.Parse(h.Location[..^1])) // todo menos el último carácter (número de fila)
+                .ThenBy(h => h.Location[^1]) // último carácter (columna)
+                .ToList();
         }
     }
 }

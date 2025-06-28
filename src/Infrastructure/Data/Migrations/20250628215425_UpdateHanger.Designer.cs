@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20250628215425_UpdateHanger")]
+    partial class UpdateHanger
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,9 +61,6 @@ namespace Infrastructure.Data.Migrations
                     b.Property<string>("Color")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("HangerId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("tinyint(1)");
 
@@ -83,8 +83,6 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HangerId");
 
                     b.HasIndex("OwnerId");
 
@@ -205,17 +203,9 @@ namespace Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.Kayak", b =>
                 {
-                    b.HasOne("Domain.Entities.Hanger", "Hanger")
-                        .WithMany()
-                        .HasForeignKey("HangerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.Owner", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId");
-
-                    b.Navigation("Hanger");
 
                     b.Navigation("Owner");
                 });

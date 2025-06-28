@@ -10,5 +10,6 @@ namespace Application.Models.Request
     {
         public int Row { get; set; }
         public char Column { get; set; }
+        public string OwnerId { get; set; } = string.Empty;
     }
 }

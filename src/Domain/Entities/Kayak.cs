@@ -22,5 +22,7 @@ namespace Domain.Entities
         public bool IsAvailable { get; set; } = false;
         public Owner? Owner { get; set; }
         public string? OwnerId { get; set; } = string.Empty;
+        public Hanger Hanger { get; set; }
+        public int? HangerId { get; set; }
     }
 }

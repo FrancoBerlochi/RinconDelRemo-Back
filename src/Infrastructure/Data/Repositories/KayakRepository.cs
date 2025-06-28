@@ -31,5 +31,10 @@ namespace Infrastructure.Data.Repositories
             kayak.IsAvailable = false;
             _context.SaveChanges();
         }
+
+        public bool ExistsWithHangerId(int hangerId)
+        {
+            return _context.Kayaks.Any(k => k.HangerId == hangerId);
+        }
     }
 }

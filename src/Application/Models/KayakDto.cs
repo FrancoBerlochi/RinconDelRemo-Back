@@ -14,6 +14,7 @@ namespace Application.Models
         public DateTime? PublicationDate { get; set; }
         public bool IsAvailable { get; set; } = false;
         public string? OwnerId { get; set; }
+        public int? HangerId { get; set; }
 
         public static KayakDto Create(Kayak kayak)
         {
@@ -28,6 +29,7 @@ namespace Application.Models
             dto.PublicationDate = kayak.PublicationDate;
             dto.IsAvailable = kayak.IsAvailable;
             dto.OwnerId = kayak.OwnerId;
+            dto.HangerId = kayak.HangerId;
             return dto;
         }
     } 

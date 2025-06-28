@@ -38,12 +38,20 @@ namespace Web.Controllers
             }
         }
 
-        [Authorize(Policy = "DuenioKayak")]
+        [Authorize(Policy = "ClienteODuenio")]
         [HttpPost("[action]")]
         public IActionResult CreateKayak([FromBody] KayakCreateRequest request)
         {
-            var obj = _kayakService.Create(request);
-            return CreatedAtAction(nameof(GetById), new { id = obj.Id }, obj);
+            try
+            {
+                var obj = _kayakService.Create(request);
+                return CreatedAtAction(nameof(GetById), new { id = obj.Id }, obj);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         [Authorize(Policy = "DuenioKayak")]

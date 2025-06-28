@@ -14,5 +14,6 @@ namespace Application.Models.Request
         public Material Material { get; set; } 
         public DateTime PublicationDate { get; set; }
         public string OwnerId { get; set; } = string.Empty;
+        public int HangerId { get; set; }
     }
 }

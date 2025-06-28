@@ -13,7 +13,6 @@ namespace Application.Models
         public int Row { get; set; }
         public char Column { get; set; }
         public bool IsOccupied { get; set; }
-        public int? KayakId { get; set; }
 
         public static HangerDto Create(Hanger hanger)
         {
@@ -23,7 +22,6 @@ namespace Application.Models
                 Column = hanger.Column,
                 Row = hanger.Row,
                 IsOccupied = hanger.IsOccupied,
-                KayakId = hanger.KayakId
             };
         }
     }

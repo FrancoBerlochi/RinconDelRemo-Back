@@ -10,7 +10,7 @@ namespace Application.Interfaces
 {
     public interface IHangerService
     {
-        HangerDto Create(HangerCreateRequest request, int kayakId);
+        HangerDto Create(HangerCreateRequest request);
         void Delete(int id);
         List<HangerDto> GetOccupiedHangers();
         HangerDto? GetById(int id);
