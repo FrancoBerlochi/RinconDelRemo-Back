@@ -16,7 +16,7 @@ namespace Infrastructure.Data.Repositories
             _context = context;
         }
 
-        public Owner? GetByNameLastname(string name, string lastname)
+        public Owner? GetByNameLastname(string? name, string? lastname)
         {
             return _context.Owners.SingleOrDefault(o => o.Name == name && o.LastName == lastname);
         }
