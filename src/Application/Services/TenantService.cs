@@ -65,18 +65,8 @@ namespace Application.Services
         
         public List<TenantDto> GetAll()
         {
-            var tenants = _tenantRepository.GetAll();
-            if (tenants.Count == 0)
-            {
-                throw new Exception("No tenants");
-            }
-            return tenants.Select(t => new TenantDto
-            {
-                Id = t.Id,
-                Name = t.Name,
-                LastName = t.LastName,
-                Email = t.Email,
-            }).ToList();
+            var tenant = _tenantRepository.GetAll();
+            return tenant.Select(TenantDto.Create).ToList();
         }
 
         public TenantDto GetById(string id)
