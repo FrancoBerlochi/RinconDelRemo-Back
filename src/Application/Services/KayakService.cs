@@ -19,6 +19,14 @@ namespace Application.Services
 
         public KayakDto Create(KayakCreateRequest request)
         {
+<<<<<<< HEAD
+            if (_kayakRepository.ExistsWithHangerId(request.HangerId))
+            {
+                throw new InvalidOperationException("Ya hay un kayak asignado a esa percha.");
+            }
+
+=======
+>>>>>>> origin/Develop
             var kayak = new Kayak();
             kayak.Name = request.Name;
             kayak.Model = request.Model;
@@ -29,8 +37,9 @@ namespace Application.Services
             kayak.Color = request.Color;
             kayak.OwnerId = request.OwnerId;
             kayak.IsAvailable = false;
+            kayak.HangerId = request.HangerId;
 
-            var newKayak = _kayakRepository.Create(kayak);
+        var newKayak = _kayakRepository.Create(kayak);
             return KayakDto.Create(newKayak);
         }
 

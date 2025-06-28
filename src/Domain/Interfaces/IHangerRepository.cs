@@ -12,6 +12,5 @@ namespace Domain.Interfaces
         Hanger? FindByRowAndColumn(int row, char column);
         IEnumerable<Hanger> GetOccupied();
         IEnumerable<Hanger> GetByOwnerId(string ownerId);
-        bool IsKayakAssigned(int kayakId);
     }
 }

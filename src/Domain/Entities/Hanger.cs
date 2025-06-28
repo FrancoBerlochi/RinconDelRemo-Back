@@ -12,7 +12,7 @@ namespace Domain.Entities
         public int Row { get; set; }
         public char Column { get; set; }
         public bool IsOccupied { get; set; }
-        public int? KayakId { get; set; }
-        public Kayak? Kayak { get; set; }
+        public string OwnerId { get; set; }
+        public Owner? Owner { get; set; }
     }
 }

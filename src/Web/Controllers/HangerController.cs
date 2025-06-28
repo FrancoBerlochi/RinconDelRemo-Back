@@ -18,13 +18,13 @@ namespace Web.Controllers
             _hangerService = hangerService;
         }
 
-        [Authorize (Policy = "DuenioKayak")]
+        [Authorize(Policy = "DuenioKayak")]
         [HttpPost("[action]")] // solo dueno
-        public IActionResult Create([FromBody] HangerCreateRequest request, [FromQuery] int kayakId)
+        public IActionResult Create([FromBody] HangerCreateRequest request)
         {
             try
             {
-                var result = _hangerService.Create(request, kayakId);
+                var result = _hangerService.Create(request);
                 return Ok(result);
             }
             catch (Exception ex)

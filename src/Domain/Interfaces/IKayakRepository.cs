@@ -9,5 +9,6 @@ namespace Domain.Interfaces
         List<Kayak> GetByOwnerId(string ownerId);
         void EnableKayak(Kayak kayak);
         void DisableKayak(Kayak kayak);
+        bool ExistsWithHangerId(int hangerId);
     }
 }

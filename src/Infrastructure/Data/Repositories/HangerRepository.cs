@@ -30,14 +30,9 @@ namespace Infrastructure.Data.Repositories
         public IEnumerable<Hanger> GetByOwnerId(string ownerId)
         {
             return _context.Hangers
-                .Include(h => h.Kayak)
-                .Where(h => h.Kayak != null && h.Kayak.Owner.Id == ownerId)
+                .Include(h => h.Owner)
+                .Where(h => h.Owner != null && h.Owner.Id == ownerId)
                 .ToList();
-        }
-
-        public bool IsKayakAssigned(int kayakId)
-        {
-            return _context.Hangers.Any(h => h.KayakId == kayakId);
         }
     }
 }
