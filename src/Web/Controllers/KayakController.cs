@@ -105,7 +105,7 @@ namespace Web.Controllers
             }
         }
 
-        [Authorize(Roles = "ClienteODuenio")]
+        [Authorize(Policy = "ClienteODuenio")]
         [HttpPut("enable/{kayakId}")]
         public IActionResult EnableKayak(int kayakId)
         {
@@ -121,7 +121,7 @@ namespace Web.Controllers
 
         }
 
-        [Authorize(Roles = "ClienteODuenio")]
+        [Authorize(Policy = "ClienteODuenio")]
         [HttpPut("disable/{kayakId}")]
         public IActionResult DisableKayak(int kayakId)
         {
