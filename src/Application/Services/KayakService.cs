@@ -29,7 +29,7 @@ namespace Application.Services
             kayak.Material = request.Material;
             kayak.PublicationDate = DateTime.Now;
             kayak.Color = request.Color;
-            //kayak.Owner = authenticatedOwner;
+            kayak.OwnerId = request.OwnerId;
             kayak.IsAvailable = false;
 
             var newKayak = _kayakRepository.Create(kayak);

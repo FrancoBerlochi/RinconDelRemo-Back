@@ -10,8 +10,9 @@ namespace Application.Models.Request
         public string Model { get; set; } = string.Empty;
         public string Color { get; set; } = string.Empty;
         public int Capacity { get; set; } 
-        public string Length { get; set; } 
+        public string Length { get; set; } = string.Empty;
         public Material Material { get; set; } 
         public DateTime PublicationDate { get; set; }
+        public string OwnerId { get; set; } = string.Empty;
     }
 }

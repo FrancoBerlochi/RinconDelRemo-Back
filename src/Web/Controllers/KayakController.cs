@@ -23,7 +23,7 @@ namespace Web.Controllers
             return Ok(_kayakService.GetAll());
         }
 
-        [Authorize(Roles = "ClienteODuenio")]
+        [Authorize(Policy = "ClienteODuenio")]
         [HttpGet("Id/{id}")]
         public IActionResult GetById(int id)
         {
@@ -91,7 +91,7 @@ namespace Web.Controllers
 
         }
 
-        [Authorize(Roles = "ClienteODuenio")]
+        [Authorize(Policy = "ClienteODuenio")]
         [HttpGet("[action]/{ownerId}")]
         public IActionResult GetKayakByOwner(string ownerId)
         {

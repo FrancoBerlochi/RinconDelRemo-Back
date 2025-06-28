@@ -5,15 +5,15 @@ namespace Application.Models
     public class KayakDto
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Model { get; set; }
-        public string Color { get; set; }
-        public int Capacity { get; set; }
-        public string Length { get; set; }
-        public string Material { get; set; }
-        public DateTime PublicationDate { get; set; }
+        public string? Name { get; set; }
+        public string? Model { get; set; }
+        public string? Color { get; set; }
+        public int? Capacity { get; set; }
+        public string? Length { get; set; }
+        public string? Material { get; set; }
+        public DateTime? PublicationDate { get; set; }
         public bool IsAvailable { get; set; } = false;
-        public string OwnerId { get; set; }
+        public string? OwnerId { get; set; }
 
         public static KayakDto Create(Kayak kayak)
         {
@@ -27,7 +27,7 @@ namespace Application.Models
             dto.Material = kayak.Material.ToString() ?? "";
             dto.PublicationDate = kayak.PublicationDate;
             dto.IsAvailable = kayak.IsAvailable;
-            dto.OwnerId = kayak.Owner.Id;
+            dto.OwnerId = kayak.OwnerId;
             return dto;
         }
     } 
