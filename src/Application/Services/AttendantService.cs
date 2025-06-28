@@ -7,6 +7,7 @@ using Application.Interfaces;
 using Application.Models;
 using Application.Models.Request;
 using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Interfaces;
 
 namespace Application.Services
@@ -27,6 +28,7 @@ namespace Application.Services
         {
             var attendant = new Attendant
             {
+                Id = attendantCreateRequest.Id,
                 Name = attendantCreateRequest.Name,
                 LastName = attendantCreateRequest.LastName,
                 Email = attendantCreateRequest.Email,
@@ -89,7 +91,7 @@ namespace Application.Services
             var reservation = _kayakReservationRepository.GetById(id);
             if (reservation == null)
             {
-                throw new Exception("Reserva no encontrada");
+                throw new NotFoundException("Reserva no encontrada");
             }
             if (reservation.IsCheckedIn)
             {
@@ -97,7 +99,7 @@ namespace Application.Services
             }
 
             reservation.IsCheckedIn = true;
-            reservation.CheckInTime = DateTime.Now;
+            reservation.CheckInTime = DateTime.UtcNow;
 
             var kayak = _kayakRepository.GetById(reservation.KayakId);
             kayak.IsAvailable = true;
@@ -111,9 +113,9 @@ namespace Application.Services
             var reservation = _kayakReservationRepository.GetById(id);
             if (reservation == null)
             {
-                throw new Exception("Reserva no encontrada");
+                throw new NotFoundException("Reserva no encontrada");
             }
-            if (!reservation.IsCheckedOut)
+            if (!reservation.IsCheckedIn)
             {
                 throw new Exception("Primero debe realizar el check-in");
             }
@@ -123,7 +125,7 @@ namespace Application.Services
             }
 
             reservation.IsCheckedOut = true;
-            reservation.CheckOutTime = DateTime.Now;
+            reservation.CheckOutTime = DateTime.UtcNow;
 
             var kayak = _kayakRepository.GetById(reservation.KayakId);
             kayak.IsAvailable = false;
