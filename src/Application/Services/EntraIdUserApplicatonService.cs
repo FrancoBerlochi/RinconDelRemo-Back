@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Domain.Interfaces;
 
 namespace Application.Services
@@ -43,6 +44,15 @@ namespace Application.Services
                 throw new ArgumentException("All fields are required.");
             }
             return await _entraIdUserService.CreateUserAsync(displayName, userPrincipalName, password);
+        }
+        public async Task AppRoleToUserAsync(string userId, string appObjectId, string appRoleId) 
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                throw new ArgumentException("User ID cannot be null or empty.", nameof(userId));
+            }
+            // Más validaciones si es necesario
+            await _entraIdUserService.AppRoleToUserAsync(userId, appObjectId, appRoleId);
         }
     }
 }

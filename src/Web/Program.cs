@@ -185,6 +185,8 @@ builder.Services.AddAuthorization(options =>
 #endregion
 
 #region Services
+builder.Services.AddScoped<IEntraIdUserService, MicrosoftGraphUserService>();
+builder.Services.AddScoped<EntraIdUserApplicationService, EntraIdUserApplicationService>();
 builder.Services.AddScoped<IKayakService, KayakService>();
 builder.Services.AddScoped<IOwnerService, OwnerService>();
 builder.Services.AddScoped<ITenantService, TenantService>();
@@ -200,7 +202,7 @@ builder.Services.AddScoped<IHangerService, HangerService>();
 builder.Services.AddScoped<EntraIdUserApplicationService, EntraIdUserApplicationService>();
 builder.Services.AddScoped<IEntraIdUserService, MicrosoftGraphUserService>();
 builder.Services.AddScoped<IAdministratorService, AdministratorService>();
-#endregion
+
 
 #region Repositories
 builder.Services.AddScoped<IKayakRepository, KayakRepository>();

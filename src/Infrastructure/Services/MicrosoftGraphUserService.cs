@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Graph.Models.ODataErrors;
 
 namespace Infrastructure.Services
 {
@@ -75,6 +76,48 @@ namespace Infrastructure.Services
             };
             var createdUser = await _graphClient.Users.PostAsync(newUser);
             return createdUser.Id;
+        }
+        public async Task AppRoleToUserAsync(string userId, string appObjectId, string appRoleId)
+        {
+            var appRoleAssignment = new AppRoleAssignment
+            {
+                PrincipalId = Guid.Parse(userId), // El Object ID del usuario
+                ResourceId = Guid.Parse(appObjectId), // El Object ID del Service Principal de tu aplicación
+                AppRoleId = Guid.Parse(appRoleId) // El ID del App Role (ej. 'Admin' o 'Encargado')
+            };
+
+            try
+            {
+                // Asigna el rol al usuario en el contexto de la aplicación
+                await _graphClient.ServicePrincipals[appObjectId].AppRoleAssignments.PostAsync(appRoleAssignment);
+                Console.WriteLine($"Rol de aplicación asignado con éxito al usuario {userId}.");
+            }
+            catch (ODataError ex)
+            {
+                Console.WriteLine($"Error al asignar rol de aplicación: {ex.Error?.Code} - {ex.Error?.Message}");
+                // Manejo de errores específicos de Graph
+                throw new ApplicationException($"No se pudo asignar el rol de aplicación: {ex.Error?.Message}", ex);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error inesperado: {ex.Message}");
+                throw;
+            }
+        }
+
+        // Necesitarías un método para obtener el appRoleId de tus roles "Admin" o "Encargado"
+        // Esto generalmente implica leer el manifiesto de tu aplicación o almacenarlos en algún lugar.
+        // Opcionalmente, podrías obtener todos los appRoles de tu aplicación (ServicePrincipal)
+        // y buscar por el nombre.
+        public async Task<Guid> GetAppRoleIdByName(string appObjectId, string roleName)
+        {
+            var servicePrincipal = await _graphClient.ServicePrincipals[appObjectId].GetAsync();
+            var appRole = servicePrincipal.AppRoles?.FirstOrDefault(r => r.DisplayName.Equals(roleName, StringComparison.OrdinalIgnoreCase));
+            if (appRole == null)
+            {
+                throw new InvalidOperationException($"Rol de aplicación '{roleName}' no encontrado para la aplicación con ID '{appObjectId}'.");
+            }
+            return appRole.Id.GetValueOrDefault();
         }
     }
 }
