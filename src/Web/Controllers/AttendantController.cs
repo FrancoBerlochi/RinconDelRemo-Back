@@ -20,7 +20,6 @@ namespace Web.Controllers
             _kayakReservationService = kayakReservationService;
         }
 
-        [Authorize(Roles = "admin")]
         [HttpGet("[action]")]
         public IActionResult GetAll()
         {

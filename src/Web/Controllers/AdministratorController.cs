@@ -17,7 +17,6 @@ namespace Web.Controllers
             _administratorService = administratorService;
         }
 
-        [Authorize(Roles = "admin")]
         [HttpGet("[action]")]
         public IActionResult GetAll()
         {
