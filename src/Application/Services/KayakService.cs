@@ -19,14 +19,12 @@ namespace Application.Services
 
         public KayakDto Create(KayakCreateRequest request)
         {
-<<<<<<< HEAD
+
             if (_kayakRepository.ExistsWithHangerId(request.HangerId))
             {
                 throw new InvalidOperationException("Ya hay un kayak asignado a esa percha.");
             }
 
-=======
->>>>>>> origin/Develop
             var kayak = new Kayak();
             kayak.Name = request.Name;
             kayak.Model = request.Model;
