@@ -38,7 +38,7 @@ namespace Web.Controllers
             }
         }
 
-        [Authorize(Policy = "ClienteODuenio")]
+
         [HttpPost("[action]")]
         public IActionResult CreateKayak([FromBody] KayakCreateRequest request)
         {

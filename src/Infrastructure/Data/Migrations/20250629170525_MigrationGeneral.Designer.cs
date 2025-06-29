@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250628223322_UpdatePerchas2")]
-    partial class UpdatePerchas2
+    [Migration("20250629170525_MigrationGeneral")]
+    partial class MigrationGeneral
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,9 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
+                    b.Property<float>("Price")
+                        .HasColumnType("float");
+
                     b.Property<int>("Row")
                         .HasColumnType("int");
 
@@ -61,7 +64,7 @@ namespace Infrastructure.Data.Migrations
                     b.Property<string>("Color")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("HangerId")
+                    b.Property<int?>("HangerId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsAvailable")
@@ -158,6 +161,10 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -210,9 +217,7 @@ namespace Infrastructure.Data.Migrations
                 {
                     b.HasOne("Domain.Entities.Hanger", "Hanger")
                         .WithMany()
-                        .HasForeignKey("HangerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("HangerId");
 
                     b.HasOne("Domain.Entities.Owner", "Owner")
                         .WithMany()

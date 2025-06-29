@@ -18,7 +18,7 @@ namespace Web.Controllers
             _hangerService = hangerService;
         }
 
-        [Authorize(Policy = "DuenioKayak")]
+
         [HttpPost("[action]")] // solo dueno
         public IActionResult Create([FromBody] HangerCreateRequest request)
         {
@@ -33,7 +33,7 @@ namespace Web.Controllers
             }
         }
 
-        [Authorize(Roles = "admin,encargado")]
+
         [HttpDelete("{id}")] // solo encargado
         public IActionResult Delete(int id)
         {
@@ -61,7 +61,7 @@ namespace Web.Controllers
             return Ok(result);
         }
 
-        [Authorize (Policy = "ClienteODuenio")]
+
         [HttpGet("id/{id}")]
         public IActionResult GetById(int id)
         {
@@ -76,7 +76,6 @@ namespace Web.Controllers
             }
         }
 
-        [Authorize(Policy = "ClienteODuenio")]
         [HttpGet("byowner/{ownerId}")]
         public ActionResult<IEnumerable<HangerDto>> GetHangersByOwner(string ownerId)
         {

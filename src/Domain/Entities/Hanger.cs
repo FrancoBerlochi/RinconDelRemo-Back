@@ -14,5 +14,6 @@ namespace Domain.Entities
         public bool IsOccupied { get; set; }
         public string OwnerId { get; set; }
         public Owner? Owner { get; set; }
+        public float Price { get; set; }
     }
 }
