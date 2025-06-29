@@ -43,7 +43,6 @@ namespace Web.Controllers
         }
 
         //se le pide al admin que agregue usuarios (desarrolladores)
-        [Authorize(Roles = "admin")]
         [HttpPost("[action]")]
         public ActionResult<AttendantDto> CreateAttendant([FromBody] AttendantCreateRequest request)
         {

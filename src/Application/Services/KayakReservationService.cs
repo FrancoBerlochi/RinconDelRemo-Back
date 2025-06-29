@@ -33,20 +33,15 @@ namespace Application.Services
         }
         public KayakReservationDto Create(KayakReservationCreateRequest request)
         {
-            if (request.FechaFin <= request.FechaInicio)
-            {
-                throw new Exception("La fecha de fin debe ser posterior a la fecha de inicio.");
-            }
+           
 
             var reservation = new KayakReservation();
             reservation.KayakId = request.KayakId;
             reservation.TenantId = request.TenantId;
             reservation.FechaInicio = request.FechaInicio;
             reservation.FechaFin = request.FechaFin;
-            _kayakReservationRepository.Create(reservation);
-
             var newReservation = _kayakReservationRepository.Create(reservation);
-            return KayakReservationDto.Create(reservation);
+            return KayakReservationDto.Create(newReservation);
         }
 
         public void Update(int id, KayakReservationUpdateRequest request)

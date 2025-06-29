@@ -129,7 +129,7 @@ namespace Web.Controllers
 
         }
 
-        [Authorize(Policy = "ClienteODuenio")]
+
         [HttpPut("disable/{kayakId}")]
         public IActionResult DisableKayak(int kayakId)
         {

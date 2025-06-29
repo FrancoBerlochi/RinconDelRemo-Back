@@ -69,7 +69,6 @@ namespace Web.Controllers
             }
         }
 
-        [Authorize(Policy = "Cliente")]
         [HttpDelete("[action]/{id}")]
         public IActionResult Delete([FromRoute] string id)
         {

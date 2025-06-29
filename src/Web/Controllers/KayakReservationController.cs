@@ -42,15 +42,11 @@ namespace Web.Controllers
         [HttpPost("[action]")]
         public IActionResult CreateReservationKayak([FromBody] KayakReservationCreateRequest request)
         {
-            try
-            {
+            
                 var obj = _kayakReservationService.Create(request);
                 return Ok(obj);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            
+            
 
         }
 
