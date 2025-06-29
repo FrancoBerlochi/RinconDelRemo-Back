@@ -23,7 +23,8 @@ namespace Application.Services
                 Id = tenantCreateRequest.Id,
                 Name = tenantCreateRequest.Name,
                 LastName = tenantCreateRequest.LastName,
-                Email = tenantCreateRequest.Email
+                Email = tenantCreateRequest.Email,
+                Role = tenantCreateRequest.Role
 
             };
             _tenantRepository.Create(tenant);

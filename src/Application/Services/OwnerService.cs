@@ -53,7 +53,7 @@ namespace Application.Services
             owner.Name = request.Name;
             owner.LastName = request.LastName;
             owner.Email = request.Email;
-
+            owner.Role = request.Role;
             _ownerRepository.Create(owner);
             return owner;
         }

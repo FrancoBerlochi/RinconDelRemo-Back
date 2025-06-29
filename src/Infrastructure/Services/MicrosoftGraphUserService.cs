@@ -119,5 +119,25 @@ namespace Infrastructure.Services
             }
             return appRole.Id.GetValueOrDefault();
         }
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            try
+            {
+                var result = await _graphClient.Users
+                .GetAsync(requestConfiguration =>
+                {
+                requestConfiguration.QueryParameters.Select = new[] { "id", "displayName", "userPrincipalName", "mail" };
+                requestConfiguration.QueryParameters.Top = 100; // podés paginar más si querés
+            });
+
+            return result?.Value?.ToList() ?? new List<User>();
+            }
+            catch (Exception ex)
+            {
+            Console.WriteLine($"Error al obtener usuarios de Entra ID: {ex.Message}");
+                throw;
+            }
+        }
     }
+
 }
