@@ -48,6 +48,7 @@ namespace Application.Services
                 Column = upperColumn,
                 IsOccupied = true,
                 OwnerId = request.OwnerId,
+                Price = 20000,
             };
 
             _hangerRepository.Create(hanger);

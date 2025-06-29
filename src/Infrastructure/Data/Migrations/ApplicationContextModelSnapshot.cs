@@ -36,6 +36,9 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
+                    b.Property<float>("Price")
+                        .HasColumnType("float");
+
                     b.Property<int>("Row")
                         .HasColumnType("int");
 
