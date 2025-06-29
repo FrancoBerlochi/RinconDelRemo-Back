@@ -216,7 +216,7 @@ builder.Services.AddScoped<IAdministratorRepository, AdministratorRepository>();
 
 #region MercadoPago
 builder.Services.AddSingleton<IPaymentService>(provider =>
-    new MercadoPagoService("APP_USR-8203332625940662-061915-c4e2ad5f8f8f38c243ffa8ca0e22935c-2503974515"));
+    new MercadoPagoService("APP_USR-1542351719046597-061915-4d1ce0267a08422ff9850918c9ec8fbe-273193780"));
 builder.Services.AddTransient<CreatePaymentUseCase>();
 
 #endregion
