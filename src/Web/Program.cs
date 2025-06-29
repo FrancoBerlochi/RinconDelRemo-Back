@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
 using Application.UsesCases;
+using Microsoft.Extensions.Options;
+
 
 
 
@@ -54,7 +56,12 @@ builder.Services.AddSwaggerGen(setupAction =>
 #region Database Configuration
 var connectionString = builder.Configuration.GetConnectionString("RinconDelRemoDB");
 builder.Services.AddDbContext<ApplicationContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+           .LogTo(Console.WriteLine, LogLevel.Debug)
+           .EnableSensitiveDataLogging()
+);
+
+
 #endregion
 
 #region Swagger config
@@ -157,6 +164,7 @@ builder.Services.AddScoped<IKayakService, KayakService>();
 builder.Services.AddScoped<IOwnerService, OwnerService>();
 builder.Services.AddScoped<ITenantService, TenantService>();
 builder.Services.AddScoped<IAttendantService, AttendantService>();
+builder.Services.AddScoped<IKayakReservationService, KayakReservationService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.Configure<AuthenticacionServiceOptions>(
     builder.Configuration.GetSection(AuthenticacionServiceOptions.AuthenticacionService));
@@ -179,6 +187,7 @@ builder.Services.AddSingleton<IPaymentService>(provider =>
 builder.Services.AddTransient<CreatePaymentUseCase>();
 
 #endregion
+
 
 var app = builder.Build();
 
