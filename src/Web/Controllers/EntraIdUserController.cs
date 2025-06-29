@@ -1,5 +1,6 @@
 ﻿using Application.Models.Request;
 using Application.Services;
+using Domain.Interfaces;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +14,14 @@ namespace Web.Controllers
     public class EntraIdUserController : Controller
     {
         private readonly EntraIdUserApplicationService _applicationService;
+        private readonly IEntraIdUserService _entraIdUserService;
 
-        public EntraIdUserController(EntraIdUserApplicationService applicationService)
+        public EntraIdUserController(EntraIdUserApplicationService applicationService, IEntraIdUserService entraIdUserService)
         {
             _applicationService = applicationService;
+            _entraIdUserService = entraIdUserService;
 
-    }
+        }
 
         [HttpDelete("{userId}")]
         public async Task<IActionResult> DeleteUser(string userId)
@@ -88,6 +91,32 @@ namespace Web.Controllers
                 return StatusCode(500, $"Error al actualizar el rol del usuario: {ex.Message}");
             }
 
+        }
+
+        [HttpGet("users")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            try
+            {
+               
+                var  users = await _entraIdUserService.GetAllUsersAsync();
+                return Ok((users.Select(u => new
+                {
+                    u.Id,
+                    u.DisplayName,
+                    u.UserPrincipalName,
+                    u.Mail
+                })));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al actualizar el rol del usuario: {ex.Message}");
+            }
+            
         }
 
     }

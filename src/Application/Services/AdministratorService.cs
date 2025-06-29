@@ -27,6 +27,7 @@ namespace Application.Services
                 Name = request.Name,
                 LastName = request.LastName,
                 Email = request.Email,
+                Role = request.Role,
             };
             _administratorRepository.Create(administrator);
             return administrator;

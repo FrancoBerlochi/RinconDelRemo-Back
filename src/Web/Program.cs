@@ -202,7 +202,7 @@ builder.Services.AddScoped<IHangerService, HangerService>();
 builder.Services.AddScoped<EntraIdUserApplicationService, EntraIdUserApplicationService>();
 builder.Services.AddScoped<IEntraIdUserService, MicrosoftGraphUserService>();
 builder.Services.AddScoped<IAdministratorService, AdministratorService>();
-
+#endregion
 
 #region Repositories
 builder.Services.AddScoped<IKayakRepository, KayakRepository>();

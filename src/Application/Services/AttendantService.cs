@@ -33,6 +33,7 @@ namespace Application.Services
                 Name = attendantCreateRequest.Name,
                 LastName = attendantCreateRequest.LastName,
                 Email = attendantCreateRequest.Email,
+                Role = attendantCreateRequest.Role,
             };
             _attendantRepository.Create(attendant);
             return attendant;
