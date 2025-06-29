@@ -13,7 +13,7 @@ namespace Application.Models
         public string Name { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
-
+        public string Role { get; set; } = string.Empty ;
         public static AdministratorDto Create(Administrator administrator)
         {
             var dto = new AdministratorDto();
@@ -21,6 +21,7 @@ namespace Application.Models
             dto.Name = administrator.Name;
             dto.LastName = administrator.LastName;
             dto.Email = administrator.Email;
+            dto.Role = administrator.Role;
             return dto;
 
         }

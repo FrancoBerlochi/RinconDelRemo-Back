@@ -59,6 +59,7 @@ namespace Application.Services
                 Name = a.Name,
                 LastName = a.LastName,
                 Email = a.Email,
+                Role = a.Role,
             }).ToList();
         }
 
@@ -75,6 +76,7 @@ namespace Application.Services
                 Name = attendant.Name,
                 LastName = attendant.LastName,
                 Email = attendant.Email,
+                Role = attendant.Role,
             };
         }
 

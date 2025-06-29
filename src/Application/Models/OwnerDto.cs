@@ -13,8 +13,7 @@ namespace Application.Models
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-      
-
+        public string Role { get; set; }
         public static OwnerDto Create(Owner owner)
         {
             var dto = new OwnerDto();
@@ -22,7 +21,7 @@ namespace Application.Models
             dto.Name = owner.Name;
             dto.LastName = owner.LastName;
             dto.Email = owner.Email;
-
+            dto.Role = owner.Role;
             return dto;
         }
     }

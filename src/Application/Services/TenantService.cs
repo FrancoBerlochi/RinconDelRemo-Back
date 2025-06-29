@@ -87,6 +87,7 @@ namespace Application.Services
                     Name = tenant.Name,
                     LastName = tenant.LastName,
                     Email = tenant.Email,
+                    Role = tenant.Role
   
                 };
            // }
