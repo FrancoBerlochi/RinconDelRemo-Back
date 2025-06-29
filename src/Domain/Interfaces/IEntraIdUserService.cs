@@ -12,5 +12,7 @@ namespace Domain.Interfaces
         Task UpdateUserAsync(string userId, string Name, string LastName);
         Task<string> CreateUserAsync(string displayName, string userPrincipalName, string password);
 
+        Task AppRoleToUserAsync(string userId, string appObjectId, string appRoleId);
+
     }
 }

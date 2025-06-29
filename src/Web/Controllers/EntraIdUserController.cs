@@ -1,7 +1,9 @@
 ﻿using Application.Models.Request;
 using Application.Services;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Graph.Models;
 using Microsoft.Graph.Models.ODataErrors;
 
 namespace Web.Controllers
@@ -15,7 +17,8 @@ namespace Web.Controllers
         public EntraIdUserController(EntraIdUserApplicationService applicationService)
         {
             _applicationService = applicationService;
-        }
+
+    }
 
         [HttpDelete("{userId}")]
         public async Task<IActionResult> DeleteUser(string userId)
@@ -65,6 +68,26 @@ namespace Web.Controllers
             {
                 return StatusCode(500, $"Error al actualizar usuario: {ex.Message}");
             }
+        }
+
+        [HttpPost("{userId}")]
+        public async Task<IActionResult> RoleAssigment(string userId, string appObjectId, string appRoleId) 
+        {
+            try
+            {
+                await _applicationService.AppRoleToUserAsync(userId, appObjectId, appRoleId);
+                return Ok($"Usuario {userId} actualizado exitosamente.");
+
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al actualizar el rol del usuario: {ex.Message}");
+            }
+
         }
 
     }
