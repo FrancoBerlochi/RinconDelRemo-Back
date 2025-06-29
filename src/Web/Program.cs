@@ -199,6 +199,7 @@ builder.Services.AddHttpClient<IWeatherService, OpenWeatherService>();
 builder.Services.AddScoped<IHangerService, HangerService>();
 builder.Services.AddScoped<EntraIdUserApplicationService, EntraIdUserApplicationService>();
 builder.Services.AddScoped<IEntraIdUserService, MicrosoftGraphUserService>();
+builder.Services.AddScoped<IAdministratorService, AdministratorService>();
 #endregion
 
 #region Repositories
@@ -208,6 +209,7 @@ builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
 builder.Services.AddScoped<IAttendantRepository, AttendantRepository>();
 builder.Services.AddScoped<IKayakReservationRepository, KayakReservationRepository>();
 builder.Services.AddScoped<IHangerRepository, HangerRepository>();
+builder.Services.AddScoped<IAdministratorRepository, AdministratorRepository>();
 #endregion
 
 #region MercadoPago
