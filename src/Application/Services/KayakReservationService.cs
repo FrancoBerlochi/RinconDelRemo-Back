@@ -34,12 +34,12 @@ namespace Application.Services
         public KayakReservationDto Create(KayakReservationCreateRequest request)
         {
            
-
             var reservation = new KayakReservation();
             reservation.KayakId = request.KayakId;
             reservation.TenantId = request.TenantId;
             reservation.FechaInicio = request.FechaInicio;
             reservation.FechaFin = request.FechaFin;
+
             var newReservation = _kayakReservationRepository.Create(reservation);
             return KayakReservationDto.Create(newReservation);
         }
@@ -52,8 +52,8 @@ namespace Application.Services
             reserva.KayakId= request.KayakId;
 
             _kayakReservationRepository.Update(reserva);
-
         }
+
         public void Delete(int id)
         {
             var reserva = _kayakReservationRepository.GetById(id) ?? throw new NotFoundException("Reserva no encontrada.");
@@ -74,11 +74,11 @@ namespace Application.Services
             {
                 throw new Exception("La reserva no existe.");
             }
-            if (reserva.StatusReservation == StatusReservation.Canceled)
+            if (reserva.StatusReservation == StatusReservation.Cancelada)
             {
                 throw new Exception("La reserva ya está cancelada.");
             }
-            reserva.StatusReservation = StatusReservation.Canceled;
+            reserva.StatusReservation = StatusReservation.Cancelada;
             _kayakReservationRepository.Update(reserva);
         }
 
@@ -87,10 +87,11 @@ namespace Application.Services
             var respuesta = _kayakReservationRepository.GetAllWithIncludes();
             return respuesta.Select(r => new KayakReservationHistoryDto
             {
+                ReservationId = r.Id,
                 KayakName = r.Kayak.Name,
                 TenantFullName = $"{r.Tenant.Name} {r.Tenant.LastName}",
-                CheckInTime = r.FechaInicio,
-                CheckOutTime = r.FechaFin,
+                CheckInTime = r.CheckInTime,
+                CheckOutTime = r.CheckOutTime,
                 Estado = r.StatusReservation.ToString()
             }).ToList();
 
@@ -98,7 +99,7 @@ namespace Application.Services
 
         public List<KayakReservationDto> GetActiveReservations()
         {
-            var reservas = _kayakReservationRepository.GetByStatus(StatusReservation.Active);
+            var reservas = _kayakReservationRepository.GetByStatus(StatusReservation.EnUso);
             if (reservas == null)
             {
                 throw new NotFoundException("No se han encontrado Reservas activas.");
@@ -108,7 +109,7 @@ namespace Application.Services
 
         public List<KayakReservationDto> GetCancelledReservations()
         {
-            var reservas = _kayakReservationRepository.GetByStatus(StatusReservation.Canceled);
+            var reservas = _kayakReservationRepository.GetByStatus(StatusReservation.Cancelada);
             if (reservas == null)
             {
                 throw new NotFoundException("No se han encontrado Reservas canceladas.");
@@ -118,7 +119,7 @@ namespace Application.Services
 
         public List<KayakReservationDto> GetCompletedReservations()
         {
-            var reservas = _kayakReservationRepository.GetByStatus(StatusReservation.Finished);
+            var reservas = _kayakReservationRepository.GetByStatus(StatusReservation.Finalizada);
             if (reservas == null)
             {
                 throw new NotFoundException("No se han encontrado Reservas finalizadas.");

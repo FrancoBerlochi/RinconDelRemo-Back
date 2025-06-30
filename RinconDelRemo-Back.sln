@@ -5,21 +5,18 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{85F23B3D-062B-4F47-933A-5C121C21FA98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Application\Application.csproj", "{F176E26D-1CF4-4018-B114-66C30F629D92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Application\Application.csproj", "{F176E26D-1CF4-4018-B114-66C30F629D92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Domain\Domain.csproj", "{6A39A4E1-35FC-490E-98CE-7CA45DDFB6E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Domain\Domain.csproj", "{6A39A4E1-35FC-490E-98CE-7CA45DDFB6E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{995F21F9-AF1C-4EE9-80BD-82397997EE53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{995F21F9-AF1C-4EE9-80BD-82397997EE53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "src\Web\Web.csproj", "{7E2E6793-E6C9-40A8-9D5D-BD5996DC1531}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "src\Web\Web.csproj", "{7E2E6793-E6C9-40A8-9D5D-BD5996DC1531}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F176E26D-1CF4-4018-B114-66C30F629D92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -38,6 +35,9 @@ Global
 		{7E2E6793-E6C9-40A8-9D5D-BD5996DC1531}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E2E6793-E6C9-40A8-9D5D-BD5996DC1531}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E2E6793-E6C9-40A8-9D5D-BD5996DC1531}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F176E26D-1CF4-4018-B114-66C30F629D92} = {85F23B3D-062B-4F47-933A-5C121C21FA98}
