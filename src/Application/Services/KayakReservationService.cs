@@ -89,8 +89,8 @@ namespace Application.Services
             {
                 KayakName = r.Kayak.Name,
                 TenantFullName = $"{r.Tenant.Name} {r.Tenant.LastName}",
-                CheckInTime = r.FechaInicio,
-                CheckOutTime = r.FechaFin,
+                CheckInTime = r.CheckInTime,
+                CheckOutTime = r.CheckOutTime,
                 Estado = r.StatusReservation.ToString()
             }).ToList();
 
