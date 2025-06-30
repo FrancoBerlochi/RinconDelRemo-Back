@@ -103,8 +103,8 @@ namespace Application.Services
             }
 
             reservation.IsCheckedIn = true;
-            reservation.CheckInTime = DateTime.UtcNow;
-            reservation.StatusReservation = StatusReservation.Active;
+            reservation.CheckInTime = DateTime.Now;
+            reservation.StatusReservation = StatusReservation.EnUso;
 
             var kayak = _kayakRepository.GetById(reservation.KayakId);
             kayak.IsAvailable = true;
@@ -130,8 +130,8 @@ namespace Application.Services
             }
 
             reservation.IsCheckedOut = true;
-            reservation.CheckOutTime = DateTime.UtcNow;
-            reservation.StatusReservation = StatusReservation.Finished;
+            reservation.CheckOutTime = DateTime.Now;
+            reservation.StatusReservation = StatusReservation.Finalizada;
 
             var kayak = _kayakRepository.GetById(reservation.KayakId);
             kayak.IsAvailable = false;

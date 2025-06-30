@@ -17,7 +17,7 @@ namespace Domain.Entities
         public Tenant Tenant { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
-        public StatusReservation StatusReservation { get; set; }= StatusReservation.Active;
+        public StatusReservation StatusReservation { get; set; }
 
  
         public bool IsCheckedIn {  get; set; } = false;

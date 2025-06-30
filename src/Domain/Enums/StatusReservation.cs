@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 namespace Domain.Enums
 {
     public enum StatusReservation
-    {  
-        Active,
-        Finished,
-        Canceled
+    {
+        Pendiente,
+        EnUso,   // Check-in realizado
+        Finalizada,   // Check-out realizado
+        Cancelada
     }
 }
