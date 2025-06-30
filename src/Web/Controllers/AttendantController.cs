@@ -86,7 +86,7 @@ namespace Web.Controllers
             }
         }
 
-        [Authorize(Roles = "admin,encargado")]
+     
         [HttpPost("checkin/{id}")]
         public IActionResult CheckIn(int id)
         {
@@ -101,7 +101,7 @@ namespace Web.Controllers
             }
         }
 
-        [Authorize(Roles = "admin,encargado")]
+ 
         [HttpPost("checkout/{id}")]
         public IActionResult CheckOut(int id)
         {
@@ -116,7 +116,7 @@ namespace Web.Controllers
             }
         }
 
-        [Authorize(Roles = "admin,encargado")]
+
         [HttpGet("reservations")]
         public IActionResult GetReservations([FromQuery] DateTime? date, [FromQuery] string? tentantId)
         {
@@ -124,7 +124,7 @@ namespace Web.Controllers
             return Ok(respuesta);
         }
 
-        [Authorize(Roles = "admin,encargado")]
+
         [HttpGet("checkins-checkouts")]
         public IActionResult GetHistory()
         {

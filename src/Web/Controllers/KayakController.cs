@@ -23,7 +23,7 @@ namespace Web.Controllers
             return Ok(_kayakService.GetAll());
         }
 
-        [Authorize(Policy = "ClienteODuenio")]
+ 
         [HttpGet("Id/{id}")]
         public IActionResult GetById(int id)
         {
@@ -54,7 +54,7 @@ namespace Web.Controllers
 
         }
 
-        [Authorize(Policy = "DuenioKayak")]
+
         [HttpPut("[action]/{id}")]
         public IActionResult Update([FromRoute] int id, [FromBody] KayakUpdateRequest request)
         {
@@ -69,7 +69,7 @@ namespace Web.Controllers
             }
         }
 
-        [Authorize(Policy = "DuenioKayak")]
+  
         [HttpDelete("[action]/{id}")]
         public IActionResult Delete([FromRoute] int id)
         {
@@ -99,7 +99,7 @@ namespace Web.Controllers
 
         }
 
-        [Authorize(Policy = "ClienteODuenio")]
+
         [HttpGet("[action]/{ownerId}")]
         public IActionResult GetKayakByOwner(string ownerId)
         {
@@ -113,7 +113,7 @@ namespace Web.Controllers
             }
         }
 
-        [Authorize(Policy = "ClienteODuenio")]
+
         [HttpPut("enable/{kayakId}")]
         public IActionResult EnableKayak(int kayakId)
         {
